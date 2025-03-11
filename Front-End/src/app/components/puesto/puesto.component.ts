@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class PuestoComponent {
   puestoForm: FormGroup;
+  isEditMode = false;
 
   constructor(
     private fb: FormBuilder,
@@ -18,46 +19,38 @@ export class PuestoComponent {
     private route: ActivatedRoute
   ) {
     this.puestoForm = this.fb.group({
-      nombre: ['', Validators.required],
-      estatus: ['', Validators.required]
+      puesto: ['', Validators.required]
     });
   }
-  ngOnInit(): void {   
-    
-      // Obtener el ID del empleado desde la URL y cargar sus datos
-      this.route.paramMap.subscribe(params => {
-        const puestoId = params.get('id');
-        if (puestoId) {
-          this.puestoService.obtenerPuestoPorId(puestoId).subscribe(puesto => {
-            this.puestoForm.patchValue({
-              nombre: puesto.nombre,
-              estatus: puesto.estatus,
-            });
-          });
-        }
-      });
-    }
-  
-  
-    onSubmit(): void {
-      if (this.puestoForm.valid) {
-        const formData = new FormData();
-        const formValues = this.puestoForm.value;
-  
-        // Campos básicos
-        formData.append('nombre', formValues.nombre);
-        formData.append('estatus', formValues.estatus);
-  
-        // Enviar datos al servidor
-        this.puestoService.crearPuesto(formData).subscribe({
-          next: (response) => {
-            console.log('Puesto creada:', response);
-            this.router.navigate(['/listado']);
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const puestoId = params.get('id');
+      if (puestoId) {
+        this.isEditMode = true;
+        this.puestoService.obtenerPuestoPorId(puestoId).subscribe({
+          next: (puesto) => {
+            this.puestoForm.patchValue(puesto);
           },
-          error: (err) => {
-            console.error('Error al crear puesto:', err);
-          }
+          error: (err) => console.error('Error al cargar puesto:', err)
         });
       }
+    });
+  }
+
+  onSubmit(): void {
+    if (this.puestoForm.valid) {
+      const puestoData = this.puestoForm.value;
+      const operation = this.isEditMode 
+        ? this.puestoService.actualizarPuesto(this.route.snapshot.params['id'], puestoData)
+        : this.puestoService.crearPuesto(puestoData);
+
+      operation.subscribe({
+        next: () => {
+          this.router.navigate(['/listado']);
+        },
+        error: (err) => console.error('Error:', err)
+      });
     }
   }
+}
