@@ -1,33 +1,60 @@
-const Empleado = require('../models/actividadModel');
-const path = require('path');
+const Actividad = require('../models/actividadModel');
 
 exports.crearActividad = async (req, res) => {
-    upload(req, res, async (err) => {
-        if (err) return res.status(500).json({ error: err.message });
+    try {
+        const { nombre} = req.body;
+        
+        if (!nombre) {
+            return res.status(400).json({ error: 'Nombre son obligatorios' });
+        }
 
-        const { nombre, estatus} = req.body;
-
-        const actividad = new Actividad({
-            nombre: nombre,
-            estatus: estatus
-        });
-
+        const actividad = new Actividad({ nombre });
         await actividad.save();
         res.status(201).json(actividad);
-    });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
 exports.obtenerActividades = async (req, res) => {
-    const actividades = await Actividad.find();
-    res.json(actividades);
+    try {
+        const actividads = await Actividad.find();
+        res.json(actividads);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.obtenerActividadPorId = async (req, res) => {
+    try {
+        const actividad = await Actividad.findById(req.params.id);
+        if (!actividad) return res.status(404).json({ error: 'Actividad no encontrado' });
+        res.json(actividad);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
 exports.actualizarActividad = async (req, res) => {
-    const actividad = await Actividad.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(actividad);
+    try {
+        const actividad = await Actividad.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        );
+        if (!actividad) return res.status(404).json({ error: 'Actividad no encontrado' });
+        res.json(actividad);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
 exports.eliminarActividad = async (req, res) => {
-    await Actividad.findByIdAndDelete(req.params.id);
-    res.status(204).send();
+    try {
+        const actividad = await Actividad.findByIdAndDelete(req.params.id);
+        if (!actividad) return res.status(404).json({ error: 'Actividad no encontrado' });
+        res.status(204).send();
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };

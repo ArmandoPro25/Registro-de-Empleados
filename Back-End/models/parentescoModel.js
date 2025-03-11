@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const ParentescoSchema = new mongoose.Schema({
-    parentesco: String
+    parentesco: {
+        type: String,
+        required: [true, 'El parentesco es obligatorio'],
+        trim: true
+    }
 });
 
 module.exports = mongoose.model('Parentesco', ParentescoSchema);

@@ -1,33 +1,60 @@
-const Empleado = require('../models/puestoModel');
-const path = require('path');
+const Puesto = require('../models/puestoModel');
 
 exports.crearPuesto = async (req, res) => {
-    upload(req, res, async (err) => {
-        if (err) return res.status(500).json({ error: err.message });
+    try {
+        const { nombre, estatus } = req.body;
+        
+        if (!nombre || !estatus) {
+            return res.status(400).json({ error: 'Nombre y estatus son obligatorios' });
+        }
 
-        const { nombre, estatus} = req.body;
-
-        const puesto = new Puesto({
-            nombre: nombre,
-            estatus: estatus
-        });
-
+        const puesto = new Puesto({ nombre, estatus });
         await puesto.save();
         res.status(201).json(puesto);
-    });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
 exports.obtenerPuestos = async (req, res) => {
-    const puestos = await Puesto.find();
-    res.json(puestos);
+    try {
+        const puestos = await Puesto.find();
+        res.json(puestos);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.obtenerPuestoPorId = async (req, res) => {
+    try {
+        const puesto = await Puesto.findById(req.params.id);
+        if (!puesto) return res.status(404).json({ error: 'Puesto no encontrado' });
+        res.json(puesto);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
 exports.actualizarPuesto = async (req, res) => {
-    const puesto = await Puesto.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(puesto);
+    try {
+        const puesto = await Puesto.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        );
+        if (!puesto) return res.status(404).json({ error: 'Puesto no encontrado' });
+        res.json(puesto);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
 exports.eliminarPuesto = async (req, res) => {
-    await Puesto.findByIdAndDelete(req.params.id);
-    res.status(204).send();
+    try {
+        const puesto = await Puesto.findByIdAndDelete(req.params.id);
+        if (!puesto) return res.status(404).json({ error: 'Puesto no encontrado' });
+        res.status(204).send();
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };

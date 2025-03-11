@@ -22,8 +22,8 @@ mongoose.connect('mongodb://localhost:27017/empleados')
 app.use('/api/empleados', empleadoRoutes);
 app.use('/api/departamentos', departamentoRoutes);
 app.use('/api/parentescos', parentescoRoutes);
-api.use('/api/puestos', puestoRoutes);
-api.use('/api/actividades', actividadRoutes);
+app.use('/api/puestos', puestoRoutes);
+app.use('/api/actividades', actividadRoutes);
 
 // Iniciar servidor
 const PORT = 5000;
