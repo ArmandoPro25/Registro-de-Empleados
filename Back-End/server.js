@@ -2,6 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const empleadoRoutes = require('./routes/empleadoRoutes');
+const departamentoRoutes = require('./routes/departamentoRoutes');
+const parentescoRoutes = require('./routes/parentescoRoutes');
+const puestoRoutes = require('./routes/puestoRoutes');
+const actividadRoutes = require('./routes/actividadRoutes');
 
 const app = express();
 app.use(cors());
@@ -16,6 +20,10 @@ mongoose.connect('mongodb://localhost:27017/empleados')
 
 // Usar rutas
 app.use('/api/empleados', empleadoRoutes);
+app.use('/api/departamentos', departamentoRoutes);
+app.use('/api/parentescos', parentescoRoutes);
+api.use('/api/puestos', puestoRoutes);
+api.use('/api/actividades', actividadRoutes);
 
 // Iniciar servidor
 const PORT = 5000;

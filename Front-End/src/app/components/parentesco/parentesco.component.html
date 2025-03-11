@@ -1,0 +1,11 @@
+<h1>Administrar Parentesco</h1>
+<form [formGroup]="parentescoForm" (ngSubmit)="onSubmit()">
+  <!-- Actividad -->
+  <div>
+    <label>Parentesco:</label>
+    <input formControlName="parentesco" />
+  </div>
+
+  <!-- Botón de Enviar -->
+  <button type="submit">Guardar</button>
+</form>

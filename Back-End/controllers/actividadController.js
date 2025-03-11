@@ -5,11 +5,11 @@ exports.crearActividad = async (req, res) => {
     upload(req, res, async (err) => {
         if (err) return res.status(500).json({ error: err.message });
 
-        const { nombre, importancia} = req.body;
+        const { nombre, estatus} = req.body;
 
         const actividad = new Actividad({
             nombre: nombre,
-            importancia: importancia
+            estatus: estatus
         });
 
         await actividad.save();
