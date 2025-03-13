@@ -6,29 +6,27 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PuestoService {
-
   private apiUrl = 'http://localhost:5000/api/puestos';
 
-      constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-      crearPuesto(puesto: FormData): Observable<any> {
-        return this.http.post(this.apiUrl, puesto);
-      }
+  crearPuesto(puesto: any): Observable<any> {
+    return this.http.post(this.apiUrl, puesto);
+  }
 
-      obtenerPuestos(): Observable<any> {
-        return this.http.get(this.apiUrl);
-      }
+  obtenerPuestos(): Observable<any> {
+    return this.http.get(this.apiUrl);
+  }
 
-      obtenerPuestoPorId(id: string): Observable<any> {
-        return this.http.get(`${this.apiUrl}/${id}`);
-      }
+  obtenerPuestoPorId(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
 
-      actualizarPuesto(id: string, puesto: any): Observable<any> {
-        return this.http.put(`${this.apiUrl}/${id}`, puesto);
-      }
+  actualizarPuesto(id: string, puesto: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, puesto);
+  }
 
-      eliminarPuesto(id: string): Observable<any> {
-        return this.http.delete(`${this.apiUrl}/${id}`);
-      }
-
+  eliminarPuesto(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

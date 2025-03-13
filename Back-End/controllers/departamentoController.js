@@ -1,33 +1,60 @@
-const Empleado = require('../models/departamentoModel');
-const path = require('path');
+const Departamento = require('../models/departamentoModel');
 
 exports.crearDepartamento = async (req, res) => {
-    upload(req, res, async (err) => {
-        if (err) return res.status(500).json({ error: err.message });
+    try {
+        const { nombre } = req.body;
+        
+        if (!nombre) {
+            return res.status(400).json({ error: 'Nombre son obligatorios' });
+        }
 
-        const { nombre, estatus} = req.body;
-
-        const departamento = new Departamento({
-            nombre: nombre,
-            estatus: estatus
-        });
-
+        const departamento = new Departamento({nombre});
         await departamento.save();
         res.status(201).json(departamento);
-    });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
 exports.obtenerDepartamentos = async (req, res) => {
-    const departamento = await Departamento.find();
-    res.json(departamentos);
+    try {
+        const departamentos = await Departamento.find();
+        res.json(departamentos);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.obtenerDepartamentoPorId = async (req, res) => {
+    try {
+        const departamento = await Departamento.findById(req.params.id);
+        if (!departamento) return res.status(404).json({ error: 'Departamento no encontrado' });
+        res.json(departamento);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
 exports.actualizarDepartamento = async (req, res) => {
-    const departamento = await Departamento.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(departamento);
+    try {
+        const departamento = await Departamento.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        );
+        if (!departamento) return res.status(404).json({ error: 'Departamento no encontrado' });
+        res.json(departamento);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
 exports.eliminarDepartamento = async (req, res) => {
-    await Departamento.findByIdAndDelete(req.params.id);
-    res.status(204).send();
+    try {
+        const departamento = await Departamento.findByIdAndDelete(req.params.id);
+        if (!departamento) return res.status(404).json({ error: 'Departamento no encontrado' });
+        res.status(204).send();
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };

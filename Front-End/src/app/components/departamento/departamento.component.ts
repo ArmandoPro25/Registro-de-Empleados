@@ -10,53 +10,46 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class DepartamentoComponent {
   departamentoForm: FormGroup;
-
-  constructor(
-    private fb: FormBuilder,
-    private departamentoService: DepartamentoService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
-    this.departamentoForm = this.fb.group({
-      nombre: ['', Validators.required],
-      estatus: ['', Validators.required]
-    });
-  }
-  ngOnInit(): void {   
-    
-      // Obtener el ID del empleado desde la URL y cargar sus datos
+    isEditMode = false;
+  
+    constructor(
+      private fb: FormBuilder,
+      private departamentoService: DepartamentoService,
+      private router: Router,
+      private route: ActivatedRoute
+    ) {
+      this.departamentoForm = this.fb.group({
+        nombre: ['', Validators.required]
+      });
+    }
+  
+    ngOnInit(): void {
       this.route.paramMap.subscribe(params => {
         const departamentoId = params.get('id');
         if (departamentoId) {
-          this.departamentoService.obtenerDepartamentoPorId(departamentoId).subscribe(departamento => {
-            this.departamentoForm.patchValue({
-              nombre: departamento.nombre,
-              estatus: departamento.estatus,
-            });
+          this.isEditMode = true;
+          this.departamentoService.obtenerDepartamentoPorId(departamentoId).subscribe({
+            next: (departamento) => {
+              this.departamentoForm.patchValue(departamento);
+            },
+            error: (err) => console.error('Error al cargar departamento:', err)
           });
         }
       });
     }
   
-  
     onSubmit(): void {
       if (this.departamentoForm.valid) {
-        const formData = new FormData();
-        const formValues = this.departamentoForm.value;
+        const departamentoData = this.departamentoForm.value;
+        const operation = this.isEditMode 
+          ? this.departamentoService.actualizarDepartamento(this.route.snapshot.params['id'], departamentoData)
+          : this.departamentoService.crearDepartamento(departamentoData);
   
-        // Campos básicos
-        formData.append('nombre', formValues.nombre);
-        formData.append('estatus', formValues.estatus);
-  
-        // Enviar datos al servidor
-        this.departamentoService.crearDepartamento(formData).subscribe({
-          next: (response) => {
-            console.log('Departamento creada:', response);
+        operation.subscribe({
+          next: () => {
             this.router.navigate(['/listado']);
           },
-          error: (err) => {
-            console.error('Error al crear departamento:', err);
-          }
+          error: (err) => console.error('Error:', err)
         });
       }
     }

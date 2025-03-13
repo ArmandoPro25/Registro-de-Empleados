@@ -10,50 +10,46 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ParentescoComponent {
   parentescoForm: FormGroup;
-
-  constructor(
-    private fb: FormBuilder,
-    private parentescoService: ParentescoService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
-    this.parentescoForm = this.fb.group({
-      parentesco: ['', Validators.required],
-    });
-  }
-  ngOnInit(): void {   
-    
-      // Obtener el ID del empleado desde la URL y cargar sus datos
+    isEditMode = false;
+  
+    constructor(
+      private fb: FormBuilder,
+      private parentescoService: ParentescoService,
+      private router: Router,
+      private route: ActivatedRoute
+    ) {
+      this.parentescoForm = this.fb.group({
+        parentesco: ['', Validators.required]
+      });
+    }
+  
+    ngOnInit(): void {
       this.route.paramMap.subscribe(params => {
         const parentescoId = params.get('id');
         if (parentescoId) {
-          this.parentescoService.obtenerParentescoPorId(parentescoId).subscribe(parentesco => {
-            this.parentescoForm.patchValue({
-              parentesco: parentesco.parentesco,
-            });
+          this.isEditMode = true;
+          this.parentescoService.obtenerParentescoPorId(parentescoId).subscribe({
+            next: (parentesco) => {
+              this.parentescoForm.patchValue(parentesco);
+            },
+            error: (err) => console.error('Error al cargar parentesco:', err)
           });
         }
       });
     }
   
-  
     onSubmit(): void {
       if (this.parentescoForm.valid) {
-        const formData = new FormData();
-        const formValues = this.parentescoForm.value;
+        const parentescoData = this.parentescoForm.value;
+        const operation = this.isEditMode 
+          ? this.parentescoService.actualizarParentesco(this.route.snapshot.params['id'], parentescoData)
+          : this.parentescoService.crearParentesco(parentescoData);
   
-        // Campos básicos
-        formData.append('parentesco', formValues.parentesco);
-  
-        // Enviar datos al servidor
-        this.parentescoService.crearParentesco(formData).subscribe({
-          next: (response) => {
-            console.log('Parentesco creada:', response);
+        operation.subscribe({
+          next: () => {
             this.router.navigate(['/listado']);
           },
-          error: (err) => {
-            console.error('Error al crear parentesco:', err);
-          }
+          error: (err) => console.error('Error:', err)
         });
       }
     }
