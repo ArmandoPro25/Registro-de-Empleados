@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ActividadComponent {
   actividadForm: FormGroup;
     isEditMode = false;
-  
+
     constructor(
       private fb: FormBuilder,
       private actividadService: ActividadService,
@@ -22,7 +22,7 @@ export class ActividadComponent {
         nombre: ['', Validators.required]
       });
     }
-  
+
     ngOnInit(): void {
       this.route.paramMap.subscribe(params => {
         const actividadId = params.get('id');
@@ -37,17 +37,17 @@ export class ActividadComponent {
         }
       });
     }
-  
+
     onSubmit(): void {
       if (this.actividadForm.valid) {
         const actividadData = this.actividadForm.value;
-        const operation = this.isEditMode 
+        const operation = this.isEditMode
           ? this.actividadService.actualizarActividad(this.route.snapshot.params['id'], actividadData)
           : this.actividadService.crearActividad(actividadData);
-  
+
         operation.subscribe({
           next: () => {
-            this.router.navigate(['/listado']);
+            this.router.navigate(['/listadoActividades']);
           },
           error: (err) => console.error('Error:', err)
         });

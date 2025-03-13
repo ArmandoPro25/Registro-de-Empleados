@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class PuestoComponent {
   puestoForm: FormGroup;
     isEditMode = false;
-  
+
     constructor(
       private fb: FormBuilder,
       private puestoService: PuestoService,
@@ -22,7 +22,7 @@ export class PuestoComponent {
         nombre: ['', Validators.required]
       });
     }
-  
+
     ngOnInit(): void {
       this.route.paramMap.subscribe(params => {
         const puestoId = params.get('id');
@@ -37,17 +37,17 @@ export class PuestoComponent {
         }
       });
     }
-  
+
     onSubmit(): void {
       if (this.puestoForm.valid) {
         const puestoData = this.puestoForm.value;
-        const operation = this.isEditMode 
+        const operation = this.isEditMode
           ? this.puestoService.actualizarPuesto(this.route.snapshot.params['id'], puestoData)
           : this.puestoService.crearPuesto(puestoData);
-  
+
         operation.subscribe({
           next: () => {
-            this.router.navigate(['/listado']);
+            this.router.navigate(['/listadoPuestos']);
           },
           error: (err) => console.error('Error:', err)
         });

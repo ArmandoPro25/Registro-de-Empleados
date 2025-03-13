@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ParentescoComponent {
   parentescoForm: FormGroup;
     isEditMode = false;
-  
+
     constructor(
       private fb: FormBuilder,
       private parentescoService: ParentescoService,
@@ -22,7 +22,7 @@ export class ParentescoComponent {
         parentesco: ['', Validators.required]
       });
     }
-  
+
     ngOnInit(): void {
       this.route.paramMap.subscribe(params => {
         const parentescoId = params.get('id');
@@ -37,17 +37,17 @@ export class ParentescoComponent {
         }
       });
     }
-  
+
     onSubmit(): void {
       if (this.parentescoForm.valid) {
         const parentescoData = this.parentescoForm.value;
-        const operation = this.isEditMode 
+        const operation = this.isEditMode
           ? this.parentescoService.actualizarParentesco(this.route.snapshot.params['id'], parentescoData)
           : this.parentescoService.crearParentesco(parentescoData);
-  
+
         operation.subscribe({
           next: () => {
-            this.router.navigate(['/listado']);
+            this.router.navigate(['/listadoParentescos']);
           },
           error: (err) => console.error('Error:', err)
         });

@@ -57,60 +57,50 @@ export class AdminComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.empleadoService.obtenerDepartamentos().subscribe(data => {
-      this.departamentos = data;
-    });
+    this.cargarSelects();
 
-    this.empleadoService.obtenerPuestos().subscribe(data => {
-      this.puestos = data;
-    });
-
-    this.empleadoService.obtenerParentescos().subscribe(data => {
-      this.parentescos = data;
-    });
-
-    this.empleadoService.obtenerActividades().subscribe(data => {
-      this.actividades = data;
-    });
-
-    this.agregarTelefono();
-    this.agregarCorreo();
-    this.agregarReferenciaFamiliar();
-    this.agregarCursoTomado();
-    this.agregarActividad();
-
-    // Obtener el ID del empleado desde la URL y cargar sus datos
     this.route.paramMap.subscribe(params => {
       const empleadoId = params.get('id');
-      if (empleadoId) {
-        this.empleadoService.obtenerEmpleadoPorId(empleadoId).subscribe(empleado => {
-          this.empleadoForm.patchValue({
-            Nombres: empleado.NombreEmpleado.Nombres,
-            ApellidoPaterno: empleado.NombreEmpleado.ApellidoPaterno,
-            ApellidoMaterno: empleado.NombreEmpleado.ApellidoMaterno,
-            FechaNacimiento: this.formatDate(empleado.FechaNacimiento),
-            Sexo: empleado.Sexo,
-            FotoEmpleado: empleado.FotoEmpleado,
-            Departamento: empleado.Departamento,
-            Puesto: empleado.Puesto,
-            Domicilio: {
-              Calle: empleado.Domicilio.Calle,
-              NumeroExterior: empleado.Domicilio.NumeroExterior,
-              NumeroInterior: empleado.Domicilio.NumeroInterior,
-              Colonia: empleado.Domicilio.Colonia,
-              CP: empleado.Domicilio.CP,
-              Ciudad: empleado.Domicilio.Ciudad
-            }
-          });
 
-          // Cargar los FormArrays (Teléfonos, Correos, etc.)
-          this.setTelefonos(empleado.Telefono);
-          this.setCorreos(empleado.CorreoElectronico);
-          this.setReferenciasFamiliares(empleado.ReferenciasFamiliares);
-          this.setCursosTomados(empleado.CursosTomados);
-          this.setParticipacionActividades(empleado.ParticipacionActividades);
-        });
+      if (empleadoId) {
+        this.cargarEmpleadoParaEdicion(empleadoId);
+      } else {
+        // Solo agregar campos vacíos si es un nuevo empleado
+        this.agregarTelefono();
+        this.agregarCorreo();
+        this.agregarReferenciaFamiliar();
+        this.agregarCursoTomado();
+        this.agregarActividad();
       }
+    });
+  }
+
+  cargarSelects(): void {
+    this.empleadoService.obtenerDepartamentos().subscribe(data => this.departamentos = data);
+    this.empleadoService.obtenerPuestos().subscribe(data => this.puestos = data);
+    this.empleadoService.obtenerParentescos().subscribe(data => this.parentescos = data);
+    this.empleadoService.obtenerActividades().subscribe(data => this.actividades = data);
+  }
+
+  cargarEmpleadoParaEdicion(empleadoId: string): void {
+    this.empleadoService.obtenerEmpleadoPorId(empleadoId).subscribe(empleado => {
+      this.empleadoForm.patchValue({
+        Nombres: empleado.NombreEmpleado.Nombres,
+        ApellidoPaterno: empleado.NombreEmpleado.ApellidoPaterno,
+        ApellidoMaterno: empleado.NombreEmpleado.ApellidoMaterno,
+        FechaNacimiento: this.formatDate(empleado.FechaNacimiento),
+        Sexo: empleado.Sexo,
+        FotoEmpleado: empleado.FotoEmpleado,
+        Departamento: empleado.Departamento,
+        Puesto: empleado.Puesto,
+        Domicilio: empleado.Domicilio
+      });
+
+      this.setTelefonos(empleado.Telefono);
+      this.setCorreos(empleado.CorreoElectronico);
+      this.setReferenciasFamiliares(empleado.ReferenciasFamiliares);
+      this.setCursosTomados(empleado.CursosTomados);
+      this.setParticipacionActividades(empleado.ParticipacionActividades);
     });
   }
 

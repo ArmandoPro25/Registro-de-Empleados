@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class DepartamentoComponent {
   departamentoForm: FormGroup;
     isEditMode = false;
-  
+
     constructor(
       private fb: FormBuilder,
       private departamentoService: DepartamentoService,
@@ -22,7 +22,7 @@ export class DepartamentoComponent {
         nombre: ['', Validators.required]
       });
     }
-  
+
     ngOnInit(): void {
       this.route.paramMap.subscribe(params => {
         const departamentoId = params.get('id');
@@ -37,17 +37,17 @@ export class DepartamentoComponent {
         }
       });
     }
-  
+
     onSubmit(): void {
       if (this.departamentoForm.valid) {
         const departamentoData = this.departamentoForm.value;
-        const operation = this.isEditMode 
+        const operation = this.isEditMode
           ? this.departamentoService.actualizarDepartamento(this.route.snapshot.params['id'], departamentoData)
           : this.departamentoService.crearDepartamento(departamentoData);
-  
+
         operation.subscribe({
           next: () => {
-            this.router.navigate(['/listado']);
+            this.router.navigate(['/listadoDepartamentos']);
           },
           error: (err) => console.error('Error:', err)
         });
