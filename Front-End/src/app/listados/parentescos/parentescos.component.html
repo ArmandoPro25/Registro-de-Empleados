@@ -1,0 +1,17 @@
+<h1>Listado de Parentescos</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let parentesco of parentescos">
+      <td>{{ parentesco.parentesco }}
+      <td>
+        <button [routerLink]="['/parentesco', parentesco._id]">Editar</button>
+        <button (click)="eliminarParentesco(parentesco._id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

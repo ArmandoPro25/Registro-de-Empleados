@@ -1,0 +1,17 @@
+<h1>Listado de Actividades</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let actividad of actividades">
+      <td>{{ actividad.nombre }}
+      <td>
+        <button [routerLink]="['/actividad', actividad._id]">Editar</button>
+        <button (click)="eliminarActividad(actividad._id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
