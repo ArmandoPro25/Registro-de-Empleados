@@ -11,7 +11,7 @@ const EmpleadoSchema = new mongoose.Schema({
     RFC: String,
     FechaNacimiento: Date,
     Sexo: String,
-    FotoEmpleado: String, // Ruta de la imagen
+    FotoEmpleado: String, // Se guarda la ruta de la imagen
     Domicilio: {
         Calle: String,
         NumeroExterior: String,

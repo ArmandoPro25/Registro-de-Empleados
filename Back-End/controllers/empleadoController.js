@@ -54,8 +54,28 @@ exports.obtenerEmpleados = async (req, res) => {
 };
 
 exports.actualizarEmpleado = async (req, res) => {
-    const empleado = await Empleado.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(empleado);
+    upload(req, res, async (err) => {
+        if (err) return res.status(500).json({ error: err.message });
+
+        try {
+            const updates = req.body;
+            // Solo actualiza la imagen si se sube un archivo nuevo
+            if (req.file) {
+                updates.FotoEmpleado = req.file.path;
+            }
+
+            // Actualiza el empleado sin borrar la imagen existente si no hay archivo nuevo
+            const empleado = await Empleado.findByIdAndUpdate(
+                req.params.id,
+                { $set: updates },
+                { new: true, runValidators: true }
+            );
+
+            res.json(empleado);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    });
 };
 
 exports.eliminarEmpleado = async (req, res) => {

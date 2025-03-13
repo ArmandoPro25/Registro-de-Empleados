@@ -22,8 +22,8 @@ export class EmpleadoService {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  actualizarEmpleado(id: string, empleado: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, empleado);
+  actualizarEmpleado(id: string, datos: FormData): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, datos); 
   }
 
   eliminarEmpleado(id: string): Observable<any> {

@@ -1,4 +1,5 @@
 const Puesto = require('../models/puestoModel');
+const path = require('path');
 
 exports.crearPuesto = async (req, res) => {
     try {

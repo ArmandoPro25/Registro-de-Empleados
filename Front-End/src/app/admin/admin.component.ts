@@ -15,6 +15,8 @@ export class AdminComponent implements OnInit {
   parentescos: any[] = [];
   actividades: any[] = [];
 
+  nuevaImagen: File | null = null;
+
   constructor(
     private fb: FormBuilder,
     private empleadoService: EmpleadoService,
@@ -46,6 +48,14 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  formatDate(date: Date | string): string {
+    if (!date) return '';
+    const d = new Date(date);
+    return d.toISOString().split('T')[0];
+  }
+
+
+
   ngOnInit(): void {
     this.empleadoService.obtenerDepartamentos().subscribe(data => {
       this.departamentos = data;
@@ -75,11 +85,12 @@ export class AdminComponent implements OnInit {
       if (empleadoId) {
         this.empleadoService.obtenerEmpleadoPorId(empleadoId).subscribe(empleado => {
           this.empleadoForm.patchValue({
-            Nombres: empleado.Nombres,
-            ApellidoPaterno: empleado.ApellidoPaterno,
-            ApellidoMaterno: empleado.ApellidoMaterno,
-            FechaNacimiento: empleado.FechaNacimiento,
+            Nombres: empleado.NombreEmpleado.Nombres,
+            ApellidoPaterno: empleado.NombreEmpleado.ApellidoPaterno,
+            ApellidoMaterno: empleado.NombreEmpleado.ApellidoMaterno,
+            FechaNacimiento: this.formatDate(empleado.FechaNacimiento),
             Sexo: empleado.Sexo,
+            FotoEmpleado: empleado.FotoEmpleado,
             Departamento: empleado.Departamento,
             Puesto: empleado.Puesto,
             Domicilio: {
@@ -105,15 +116,19 @@ export class AdminComponent implements OnInit {
 
   // Métodos para cargar los datos en los FormArrays
   setTelefonos(telefonos: string[]) {
-    telefonos.forEach(telefono => {
-      this.telefonos.push(this.fb.control(telefono));
-    });
+    if (telefonos && telefonos.length > 0) {
+      telefonos.forEach(telefono => {
+        this.telefonos.push(this.fb.control(telefono));
+      });
+    }
   }
 
   setCorreos(correos: string[]) {
-    correos.forEach(correo => {
-      this.correos.push(this.fb.control(correo));
-    });
+    if (correos && correos.length > 0) {
+      correos.forEach(correo => {
+        this.correos.push(this.fb.control(correo));
+      });
+    }
   }
 
   setReferenciasFamiliares(referencias: any[]) {
@@ -131,8 +146,8 @@ export class AdminComponent implements OnInit {
     cursos.forEach(curso => {
       this.cursos.push(this.fb.group({
         NombreCurso: [curso.NombreCurso],
-        FechaInicio: [curso.FechaInicio],
-        FechaTermino: [curso.FechaTermino],
+        FechaInicio: [this.formatDate(curso.FechaInicio)],
+      FechaTermino: [this.formatDate(curso.FechaTermino)],
         DocumentoRecibido: [curso.DocumentoRecibido]
       }));
     });
@@ -223,12 +238,16 @@ export class AdminComponent implements OnInit {
 
   onFileChange(event: any): void {
     const file = event.target.files[0];
-    this.empleadoForm.patchValue({ FotoEmpleado: file });
+    if (file) {
+      this.nuevaImagen = file;
+      this.empleadoForm.patchValue({ FotoEmpleado: file });
+    }
   }
 
   onSubmit(): void {
     if (this.empleadoForm.valid) {
       const formData = new FormData();
+      const empleadoId = this.route.snapshot.paramMap.get('id');
       const formValues = this.empleadoForm.value;
 
       // Campos básicos
@@ -283,20 +302,32 @@ export class AdminComponent implements OnInit {
       });
 
       // Archivo de imagen
-      if (formValues.FotoEmpleado) {
-        formData.append('FotoEmpleado', formValues.FotoEmpleado, formValues.FotoEmpleado.name);
+      if (this.nuevaImagen) {
+        formData.append('FotoEmpleado', this.nuevaImagen, this.nuevaImagen.name);
       }
 
       // Enviar datos al servidor
-      this.empleadoService.crearEmpleado(formData).subscribe({
-        next: (response) => {
-          console.log('Empleado creado:', response);
-          this.router.navigate(['/listado']);
-        },
-        error: (err) => {
-          console.error('Error al crear empleado:', err);
-        }
-      });
+      if (empleadoId) {
+        // Actualización
+        this.empleadoService.actualizarEmpleado(empleadoId, formData).subscribe({
+          next: (response) => {
+            this.router.navigate(['/listado']);
+          },
+          error: (err) => {
+            console.error('Error al actualizar:', err);
+          }
+        });
+      } else {
+        // Creación
+        this.empleadoService.crearEmpleado(formData).subscribe({
+          next: (response) => {
+            this.router.navigate(['/listado']);
+          },
+          error: (err) => {
+            console.error('Error al crear:', err);
+          }
+        });
+      }
     }
   }
 }
