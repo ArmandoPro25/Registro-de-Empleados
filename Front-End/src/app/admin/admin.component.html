@@ -31,6 +31,12 @@
   <div>
     <label>Foto:</label>
     <input type="file" name="FotoEmpleado" (change)="onFileChange($event)">
+    <!-- Mostrar imagen actual si no hay nueva imagen -->
+    <img *ngIf="empleadoForm.value.FotoEmpleado && !nuevaImagen"
+      [src]="'http://localhost:5000/' + empleadoForm.value.FotoEmpleado" alt="Foto actual" style="max-width: 100px;">
+    <!-- Mostrar vista previa de la nueva imagen -->
+    <img *ngIf="nuevaImagen" [src]="empleadoForm.value.FotoEmpleado" alt="Nueva foto"
+      style="max-width: 100px;">
   </div>
 
   <!-- Domicilio -->
@@ -116,8 +122,8 @@
         <option *ngFor="let act of actividades" [value]="act.nombre">{{ act.nombre }}</option>
       </select>
       <select formControlName="Estatus">
-        <option value="A">Activo</option>
-        <option value="I">Inactivo</option>
+        <option value="1">Participó</option>
+        <option value="0">No Participó</option>
       </select>
       <button type="button" (click)="eliminarActividad(i)">Eliminar</button>
     </div>

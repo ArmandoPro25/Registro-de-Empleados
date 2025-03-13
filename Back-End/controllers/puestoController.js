@@ -1,4 +1,4 @@
-const Empleado = require('../models/puestoModel');
+const Puesto = require('../models/puestoModel');
 const path = require('path');
 
 exports.crearPuesto = async (req, res) => {
