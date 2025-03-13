@@ -1,0 +1,17 @@
+<h1>Listado de Departamentos</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let departamento of departamentos">
+      <td>{{ departamento.nombre }}
+      <td>
+        <button [routerLink]="['/departamento', departamento._id]">Editar</button>
+        <button (click)="eliminarDepartamento(departamento._id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

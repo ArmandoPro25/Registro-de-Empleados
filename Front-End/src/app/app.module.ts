@@ -6,20 +6,29 @@ import { HttpClientModule } from '@angular/common/http';
 import { AdminComponent } from './admin/admin.component';
 import { ListadoComponent } from './listado/listado.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActividadComponent } from './components/actividad/actividad.component';
 import { DepartamentoComponent } from './components/departamento/departamento.component';
 import { PuestoComponent } from './components/puesto/puesto.component';
 import { ParentescoComponent } from './components/parentesco/parentesco.component';
+import { DepartamentosComponent } from './listados/departamentos/departamentos.component';
+import { PuestosComponent } from './listados/puestos/puestos.component';
+import { ParentescosComponent } from './listados/parentescos/parentescos.component';
+import { ActividadesComponent } from './listados/actividades/actividades.component';
+import { ActividadComponent } from './components/actividad/actividad.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminComponent,
     ListadoComponent,
-    ActividadComponent,
     DepartamentoComponent,
     PuestoComponent,
-    ParentescoComponent
+    ParentescoComponent,
+    DepartamentosComponent,
+    PuestosComponent,
+    ParentescosComponent,
+    ActividadComponent,
+    ActividadesComponent
   ],
   imports: [
     BrowserModule,

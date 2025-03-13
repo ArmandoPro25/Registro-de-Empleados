@@ -1,0 +1,17 @@
+<h1>Listado de Puestos</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let puesto of puestos">
+      <td>{{ puesto.nombre }}
+      <td>
+        <button [routerLink]="['/puesto', puesto._id]">Editar</button>
+        <button (click)="eliminarPuesto(puesto._id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

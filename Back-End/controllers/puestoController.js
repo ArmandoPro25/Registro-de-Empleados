@@ -2,13 +2,13 @@ const Puesto = require('../models/puestoModel');
 
 exports.crearPuesto = async (req, res) => {
     try {
-        const { nombre, estatus } = req.body;
+        const { nombre } = req.body;
         
-        if (!nombre || !estatus) {
-            return res.status(400).json({ error: 'Nombre y estatus son obligatorios' });
+        if (!nombre) {
+            return res.status(400).json({ error: 'Nombre son obligatorios' });
         }
 
-        const puesto = new Puesto({ nombre, estatus });
+        const puesto = new Puesto({ nombre });
         await puesto.save();
         res.status(201).json(puesto);
     } catch (error) {

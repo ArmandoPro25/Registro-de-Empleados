@@ -1,26 +1,11 @@
-<h1>{{ isEditMode ? 'Editar' : 'Crear' }} Puesto</h1>
+<h1>Administrar Puesto</h1>
 <form [formGroup]="puestoForm" (ngSubmit)="onSubmit()">
+  <!-- Actividad -->
   <div>
-    <label>Nombre:</label>
-    <input formControlName="nombre" type="text">
-    <div *ngIf="puestoForm.get('nombre')?.invalid && puestoForm.get('nombre')?.touched">
-      Nombre es requerido
-    </div>
+    <label>Puesto:</label>
+    <input formControlName="nombre" />
   </div>
 
-  <div>
-    <label>Estatus:</label>
-    <select formControlName="estatus">
-      <option value="">Seleccione...</option>
-      <option value="activo">Activo</option>
-      <option value="inactivo">Inactivo</option>
-    </select>
-    <div *ngIf="puestoForm.get('estatus')?.invalid && puestoForm.get('estatus')?.touched">
-      Estatus es requerido
-    </div>
-  </div>
-
-  <button type="submit" [disabled]="puestoForm.invalid">
-    {{ isEditMode ? 'Actualizar' : 'Guardar' }}
-  </button>
+  <!-- Botón de Enviar -->
+  <button type="submit">Guardar</button>
 </form>

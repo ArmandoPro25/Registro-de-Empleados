@@ -6,6 +6,10 @@ import { ActividadComponent } from './components/actividad/actividad.component';
 import { DepartamentoComponent } from './components/departamento/departamento.component';
 import { ParentescoComponent } from './components/parentesco/parentesco.component';
 import { PuestoComponent } from './components/puesto/puesto.component';
+import { ActividadesComponent } from './listados/actividades/actividades.component';
+import { DepartamentosComponent } from './listados/departamentos/departamentos.component';
+import { PuestosComponent } from './listados/puestos/puestos.component';
+import { ParentescosComponent } from './listados/parentescos/parentescos.component';
 
 const routes: Routes = [
   { path: '', component: ListadoComponent },
@@ -17,7 +21,13 @@ const routes: Routes = [
   { path: 'departamento', component: DepartamentoComponent },
   { path: 'departamento/:id', component: DepartamentoComponent },
   { path: 'parentesco', component: ParentescoComponent },
+  { path: 'parentesco/:id', component: ParentescoComponent },
+  { path: 'puesto/:id', component: PuestoComponent },
   { path: 'puesto', component: PuestoComponent },
+  { path: 'listadoActividades', component: ActividadesComponent },
+  { path: 'listadoDepartamentos', component: DepartamentosComponent },
+  { path: 'listadoPuestos', component: PuestosComponent },
+  { path: 'listadoParentescos', component: ParentescosComponent }
 ];
 
 @NgModule({
