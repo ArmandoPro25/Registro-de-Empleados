@@ -1,25 +1,52 @@
 <br><br><br>
 <h1>Listado de Empleados</h1>
 <table>
-  <thead>
-    <tr>
-      <th>Clave</th>
-      <th>Nombre</th>
-      <th>Departamento</th>
-      <th>Puesto</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let empleado of empleados">
-      <td>{{ empleado._id }}</td>
-      <td>{{ empleado.NombreEmpleado.Nombres }} {{ empleado.NombreEmpleado.ApellidoPaterno }}</td>
-      <td>{{ empleado.Departamento }}</td>
-      <td>{{ empleado.Puesto }}</td>
-      <td>
-        <button [routerLink]="['/editar', empleado._id]">Editar</button>
-        <button (click)="eliminarEmpleado(empleado._id)">Eliminar</button>
-      </td>
-    </tr>
-  </tbody>
+    <thead>
+        <tr>
+            <th>Clave</th>
+            <th>RFC</th>
+            <th>Nombre</th>
+            <th>Fecha de Alta</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Departamento</th>
+            <th>Puesto</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr
+            *ngFor="let empleado of empleados"
+            (mouseenter)="empleadoHover = empleado"
+            (mouseleave)="empleadoHover = null"
+        >
+            <td>{{ empleado._id }}</td>
+            <td>{{ empleado.RFC }}</td>
+            <td>{{ empleado.NombreEmpleado.Nombres }} {{ empleado.NombreEmpleado.ApellidoPaterno }} {{ empleado.NombreEmpleado.ApellidoMaterno }}</td>
+            <td>{{ empleado.FechaAlta | date }}</td>
+            <td>{{ empleado.FechaNacimiento | date }}</td>
+            <td>{{ empleado.Departamento }}</td>
+            <td>{{ empleado.Puesto }}</td>
+            <td>
+              <button class="btn-editar" [routerLink]="['/editar', empleado._id]">Editar</button>
+              <button class="btn-eliminar" (click)="eliminarEmpleado(empleado._id)">Eliminar</button>
+          </td>
+
+        </tr>
+
+        <!-- Fila de detalles -->
+        <tr
+            *ngIf="empleadoHover"
+            class="detalle-hover"
+            [ngStyle]="{ 'top': '-16px', 'position': 'relative' }"
+        >
+            <td colspan="5">
+                <div class="detalle-contenido">
+                    <h4>Detalles del empleado</h4>
+                    <p><strong>Sexo:</strong> {{ empleadoHover.Sexo === 'M' ? 'Masculino' : 'Femenino' }}</p>
+                    <p><strong>Teléfonos:</strong> {{ empleadoHover.Telefono?.join(', ') }}</p>
+                    <p><strong>Correos:</strong> {{ empleadoHover.CorreoElectronico?.join(', ') }}</p>
+                </div>
+            </td>
+        </tr>
+    </tbody>
 </table>

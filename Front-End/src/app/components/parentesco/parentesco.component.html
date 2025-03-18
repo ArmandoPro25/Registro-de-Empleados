@@ -1,12 +1,14 @@
 <br><br><br>
+<div class="admin-container">
 <h1>Administrar Parentesco</h1>
 <form [formGroup]="parentescoForm" (ngSubmit)="onSubmit()">
-  <!-- Actividad -->
+  <!-- Campo Actividad -->
   <div>
     <label>Parentesco: </label>
-    <input formControlName="parentesco" />
+    <input formControlName="parentesco" placeholder="Ingrese el parentesco"/>
   </div>
 
   <!-- Botón de Enviar -->
   <button type="submit">Guardar</button>
 </form>
+</div>

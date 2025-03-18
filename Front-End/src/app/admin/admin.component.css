@@ -1,0 +1,389 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  padding: 20px;
+}
+
+h1 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+form {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+div {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #34495e;
+  font-weight: 600;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+input:focus, select:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 8px rgba(52,152,219,0.2);
+}
+
+input[type="file"] {
+  padding: 8px;
+  border: none;
+}
+
+img {
+  display: block;
+  margin: 10px 0;
+  border: 2px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+button[type="submit"] {
+  background: #27ae60;
+  color: white;
+  font-size: 16px;
+  padding: 15px 30px;
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+  background: #219a52;
+}
+
+button[type="button"] {
+  background: #3498db;
+  color: white;
+  margin: 5px;
+}
+
+button[type="button"]:hover {
+  background: #2980b9;
+}
+
+div[formGroupName="Domicilio"],
+div[formArrayName="Telefono"],
+div[formArrayName="CorreoElectronico"],
+div[formArrayName="ReferenciasFamiliares"],
+div[formArrayName="CursosTomados"],
+div[formArrayName="ParticipacionActividades"] {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border: 1px solid #e9ecef;
+}
+
+h3 {
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #3498db;
+  font-size: 1.4em;
+}
+
+/* Grid para campos relacionados */
+div > div {
+  display: grid;
+  gap: 1rem;
+}
+
+div[formGroupName="Domicilio"] {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* Estilos para elementos dinámicos */
+div[formArrayName] > div {
+  margin-bottom: 1rem;
+  padding: 15px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+}
+
+div[formArrayName] > div > div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+div[formArrayName] input {
+  flex-grow: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  form {
+      padding: 15px;
+  }
+
+  h1 {
+      font-size: 1.8em;
+      margin-bottom: 1.5rem;
+  }
+
+  div[formArrayName] > div {
+      flex-direction: column;
+      align-items: stretch;
+  }
+
+  div[formArrayName] button[type="button"] {
+      width: 100%;
+      margin-top: 10px;
+  }
+
+  .img-preview-container {
+      width: 100%;
+      text-align: center;
+  }
+}
+
+/* Efecto hover para secciones */
+div[formGroupName]:hover,
+div[formArrayName]:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+/* Estilos para selects personalizados */
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+}
+
+
+/* Agregar iconos a los títulos de sección */
+h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #2c3e50;
+  margin: 1.5rem 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #3498db;
+  font-size: 1.4em;
+}
+
+h3::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* Iconos para todas las secciones */
+div[formGroupName="Domicilio"] h3::before,
+div[formArrayName="Telefono"] h3::before,
+div[formArrayName="CorreoElectronico"] h3::before,
+div[formArrayName="ReferenciasFamiliares"] h3::before,
+div[formArrayName="CursosTomados"] h3::before,
+div[formArrayName="ParticipacionActividades"] h3::before,
+div[formGroupName="Departamento"] h3::before,
+div[formGroupName="Puesto"] h3::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+/* Domicilio - Icono de casa */
+div[formGroupName="Domicilio"] h3::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232c3e50'%3E%3Cpath d='M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2zm0 4.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5z'/%3E%3C/svg%3E");
+}
+
+/* Teléfono - Icono de teléfono */
+div[formArrayName="Telefono"] h3::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232c3e50'%3E%3Cpath d='M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z'/%3E%3C/svg%3E");
+}
+
+/* Correo Electrónico - Icono de sobre */
+div[formArrayName="CorreoElectronico"] h3::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232c3e50'%3E%3Cpath d='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z'/%3E%3C/svg%3E");
+}
+
+/* Referencias Familiares - Icono de grupo */
+div[formArrayName="ReferenciasFamiliares"] h3::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232c3e50'%3E%3Cpath d='M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z'/%3E%3C/svg%3E");
+}
+
+/* Cursos Tomados - Icono de certificado */
+div[formArrayName="CursosTomados"] h3::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232c3e50'%3E%3Cpath d='M4 3h16v2H4zm4 8h3v10h2V11h3l-4-4z'/%3E%3Ccircle cx='18' cy='7' r='3'/%3E%3C/svg%3E");
+}
+
+/* Participación en Actividades - Icono de trofeo */
+div[formArrayName="ParticipacionActividades"] h3::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232c3e50'%3E%3Cpath d='M12 2c2.76 0 5 2.24 5 5v2h1c1.1 0 2 .9 2 2v6c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2h1V7c0-2.76 2.24-5 5-5zm0 15c-1.66 0-3-1.34-3-3h2c0 .55.45 1 1 1s1-.45 1-1h2c0 1.66-1.34 3-3 3z'/%3E%3C/svg%3E");
+}
+
+/* Departamento - Icono de edificio */
+div[formGroupName="Departamento"] h3::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232c3e50'%3E%3Cpath d='M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z'/%3E%3C/svg%3E");
+}
+
+/* Puesto - Icono de maletín */
+div[formGroupName="Puesto"] h3::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232c3e50'%3E%3Cpath d='M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4v-2h16v2zm0-5H4V8h4v2h8V8h4v6z'/%3E%3C/svg%3E");
+}
+
+/* Grid responsive para campos básicos */
+form > div:not([formGroupName]):not([formArrayName]) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+/* Mejorar grid de domicilio */
+div[formGroupName="Domicilio"] {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  margin: 1.5rem 0;
+}
+
+/*-----------------------------------*/
+/* Contenedor de imagen */
+.img-preview-container {
+  position: relative;
+  display: inline-block;
+  margin: 1rem 0;
+}
+
+/* Efecto hover para imagen */
+img {
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 4px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  max-width: 150px;
+}
+
+img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+/*-----------------------------------*/
+
+
+/* Botón principal con icono */
+button[type="submit"] {
+  position: relative;
+  padding: 15px 30px 15px 50px;
+  background: #27ae60;
+  font-size: 1.1em;
+  letter-spacing: 0.5px;
+}
+
+button[type="submit"]::before {
+  content: "✓";
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2em;
+}
+
+/* Botones secundarios con iconos */
+button[type="button"]:not([class]) {
+  padding: 8px 16px 8px 40px;
+  position: relative;
+}
+
+button[type="button"]:not([class])::before {
+  content: "+";
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+
+/* Estados de error */
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: #e74c3c !important;
+  background: #fff5f5;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 0.85em;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Mejorar foco */
+input:focus, select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
+}
+
+input[type="file"] {
+  position: relative;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border: 2px dashed #e0e0e0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+input[type="file"]::file-selector-button {
+  display: none;
+}
+
+input[type="file"]:hover {
+  background: #fff;
+  border-color: #3498db;
+}

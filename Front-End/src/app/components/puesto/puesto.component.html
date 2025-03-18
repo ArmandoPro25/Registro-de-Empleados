@@ -1,12 +1,13 @@
 <br><br><br>
-<h1>Administrar Puesto</h1>
+<div class="admin-container">
+  <h1>Administrar Puesto</h1>
+  <form [formGroup]="puestoForm" (ngSubmit)="onSubmit()">
+    <!-- Actividad -->
+    <div>
+      <label>Puesto: </label>
+      <input formControlName="nombre" placeholder="Ingrese el nombre del puesto" />
+    </div>
 
-<form [formGroup]="puestoForm" (ngSubmit)="onSubmit()">
-  <!-- Actividad -->
-  <div>
-    <label>Puesto: </label>
-    <input formControlName="nombre" />
-  </div>
-
-
-</form>
+    <button type="submit">Guardar</button>
+  </form>
+</div>

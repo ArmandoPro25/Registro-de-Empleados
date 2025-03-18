@@ -4,14 +4,15 @@
   <thead>
     <tr>
       <th>Nombre</th>
+      <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let parentesco of parentescos">
       <td>{{ parentesco.parentesco }}
       <td>
-        <button [routerLink]="['/parentesco', parentesco._id]">Editar</button>
-        <button (click)="eliminarParentesco(parentesco._id)">Eliminar</button>
+        <button class="btn-editar" [routerLink]="['/parentesco', parentesco._id]">Editar</button>
+        <button class="btn-eliminar" (click)="eliminarParentesco(parentesco._id)">Eliminar</button>
       </td>
     </tr>
   </tbody>

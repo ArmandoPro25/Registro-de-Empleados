@@ -18,7 +18,7 @@ mongoose.connect('mongodb://localhost:27017/empleados')
     .catch(err => console.error('Error al conectar a MongoDB:', err));
 
 
-// Usar rutas
+// Hacer uso de las rutas
 app.use('/api/empleados', empleadoRoutes);
 app.use('/api/departamentos', departamentoRoutes);
 app.use('/api/parentescos', parentescoRoutes);
@@ -28,5 +28,5 @@ app.use('/api/actividades', actividadRoutes);
 // Iniciar servidor
 const PORT = 5000;
 app.listen(PORT, () => {
-    console.log(`Servidor backend corriendo en http://localhost:${PORT}`);
+    console.log(`Servidor backend corriendo en el puerto ${PORT}`);
 });

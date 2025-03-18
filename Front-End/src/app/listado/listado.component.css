@@ -1,0 +1,154 @@
+/* Estilos generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f6fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-size: 2.2em;
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #3498db;
+}
+
+/* Estilos de la tabla */
+table {
+  width: calc(100% - 100px);
+  border-collapse: collapse;
+  font-size: 0.9em;
+  max-width: 100%;
+  overflow-x: auto;
+  position: relative;
+  margin-left: 50px;  /* Añadir margen izquierdo */
+  margin-right: 50px; /* Añadir margen derecho */
+}
+
+
+thead tr {
+    background-color: #3498db;
+    color: white;
+    text-align: left;
+}
+
+th, td {
+    padding: 15px 20px;
+    border-bottom: 1px solid #dddddd;
+}
+
+tbody tr {
+    transition: all 0.2s ease;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+tbody tr:hover {
+    background-color: #f1f2f6;
+    transform: scale(1.005);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para la fila de detalles */
+tr.detalle-hover {
+    background-color: #f8f9fe !important;
+    box-shadow: inset 0 0 10px rgba(52, 152, 219, 0.1);
+}
+
+.detalle-contenido {
+    padding: 20px;
+    background: #f8f9fe;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+.detalle-contenido h4 {
+    margin: 0 0 15px 0;
+    color: #2c3e50;
+}
+
+.detalle-contenido p {
+    margin: 8px 0;
+    color: #666;
+    font-size: 0.95em;
+}
+
+/* Estilos de botones */
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    margin: 2px;
+}
+
+button[routerLink] {
+    background-color: #2ecc71;
+    color: white;
+}
+
+button[routerLink]:hover {
+    background-color: #27ae60;
+}
+
+button:not([routerLink]) {
+    background-color: #e74c3c;
+    color: white;
+}
+
+button:not([routerLink]):hover {
+    background-color: #c0392b;
+}
+
+/* Estilo para el botón de Editar */
+button.btn-editar {
+  background-color: #2ecc71; /* Verde */
+  color: white;
+}
+
+button.btn-editar:hover {
+  background-color: #27ae60; /* Verde oscuro al pasar el mouse */
+}
+
+/* Estilo para el botón de Eliminar */
+button.btn-eliminar {
+  background-color: #e74c3c; /* Rojo */
+  color: white;
+}
+
+button.btn-eliminar:hover {
+  background-color: #c0392b; /* Rojo oscuro al pasar el mouse */
+}
+
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        font-size: 0.85em;
+    }
+
+    button {
+        padding: 6px 12px;
+        font-size: 0.8em;
+    }
+}

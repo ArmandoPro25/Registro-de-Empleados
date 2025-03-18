@@ -1,0 +1,112 @@
+/* Estilos generales */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f5f6fa;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 2.2em;
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #3498db;
+}
+
+/* Estilos de la tabla */
+table {
+  width: calc(100% - 100px);  /* Restar 50px a la izquierda y 50px a la derecha */
+  border-collapse: collapse;
+  font-size: 0.9em;
+  overflow-x: auto;
+  position: relative;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+thead tr {
+  background-color: #3498db;
+  color: white;
+  text-align: left;
+}
+
+th, td {
+  padding: 15px 20px;
+  border-bottom: 1px solid #dddddd;
+}
+
+tbody tr {
+  transition: all 0.2s ease;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+tbody tr:hover {
+  background-color: #f1f2f6;
+  transform: scale(1.005);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+td {
+  vertical-align: middle;  /* Centrar el contenido de las celdas */
+}
+
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  margin: 2px;
+}
+
+/* Estilo para el botón de Editar */
+button.btn-editar {
+  background-color: #2ecc71; /* Verde */
+  color: white;
+}
+
+button.btn-editar:hover {
+  background-color: #27ae60; /* Verde oscuro al pasar el mouse */
+}
+
+/* Estilo para el botón de Eliminar */
+button.btn-eliminar {
+  background-color: #e74c3c; /* Rojo */
+  color: white;
+}
+
+button.btn-eliminar:hover {
+  background-color: #c0392b; /* Rojo oscuro al pasar el mouse */
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .container {
+      padding: 15px;
+  }
+
+  th, td {
+      padding: 12px 15px;
+      font-size: 0.85em;
+  }
+
+  button {
+      padding: 6px 12px;
+      font-size: 0.8em;
+  }
+}

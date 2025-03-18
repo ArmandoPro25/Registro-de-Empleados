@@ -41,17 +41,6 @@
       style="max-width: 100px;">
   </div>
 
-  <!-- Domicilio -->
-  <div formGroupName="Domicilio">
-    <h3>Domicilio</h3>
-    <input formControlName="Calle" placeholder="Calle" />
-    <input formControlName="NumeroExterior" placeholder="Número Exterior" />
-    <input formControlName="NumeroInterior" placeholder="Número Interior" />
-    <input formControlName="Colonia" placeholder="Colonia" />
-    <input formControlName="CP" placeholder="Código Postal" />
-    <input formControlName="Ciudad" placeholder="Ciudad" />
-  </div>
-
   <!-- Departamento -->
   <div>
     <label>Departamento:</label>
@@ -66,6 +55,17 @@
     <select formControlName="Puesto">
       <option *ngFor="let puesto of puestos" [value]="puesto.nombre">{{ puesto.nombre }}</option>
     </select>
+  </div>
+
+  <!-- Domicilio -->
+  <div formGroupName="Domicilio">
+    <h3>Domicilio</h3>
+    <input formControlName="Calle" placeholder="Calle" />
+    <input formControlName="NumeroExterior" placeholder="Número Exterior" />
+    <input formControlName="NumeroInterior" placeholder="Número Interior" />
+    <input formControlName="Colonia" placeholder="Colonia" />
+    <input formControlName="CP" placeholder="Código Postal" />
+    <input formControlName="Ciudad" placeholder="Ciudad" />
   </div>
 
   <!-- Teléfonos -->
@@ -92,7 +92,9 @@
     <h3>Referencias Familiares</h3>
     <div *ngFor="let ref of referencias.controls; let i = index" [formGroupName]="i">
       <input formControlName="NombreCompleto" placeholder="Nombre Completo" />
+      <label>Parentesco: </label>
       <select formControlName="Parentesco">
+
         <option *ngFor="let parentesco of parentescos" [value]="parentesco.parentesco">{{ parentesco.parentesco }}
         </option>
       </select>
@@ -108,8 +110,13 @@
     <h3>Cursos Tomados</h3>
     <div *ngFor="let curso of cursos.controls; let i = index" [formGroupName]="i">
       <input formControlName="NombreCurso" placeholder="Nombre del Curso" />
-      <input type="date" formControlName="FechaInicio" />
-      <input type="date" formControlName="FechaTermino" />
+
+        <label>Fecha de Inicio:</label>
+        <input type="date" formControlName="FechaInicio"/>
+
+        <label>Fecha de Término:</label>
+        <input type="date" formControlName="FechaTermino"/>
+
       <input formControlName="DocumentoRecibido" placeholder="Documento Recibido" />
       <button type="button" (click)="eliminarCurso(i)">Eliminar</button>
     </div>
@@ -120,9 +127,11 @@
   <div formArrayName="ParticipacionActividades">
     <h3>Participación en Actividades</h3>
     <div *ngFor="let actividad of actividadesArray.controls; let i = index" [formGroupName]="i">
+      <label>Actividad: </label>
       <select formControlName="Actividad">
         <option *ngFor="let act of actividades" [value]="act.nombre">{{ act.nombre }}</option>
       </select>
+      <label>Estatus: </label>
       <select formControlName="Estatus">
         <option value="1">Participó</option>
         <option value="0">No Participó</option>

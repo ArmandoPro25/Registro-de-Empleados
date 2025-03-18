@@ -1,11 +1,14 @@
 <br><br><br>
-<h1>Administrar Departamento</h1>
-<form [formGroup]="departamentoForm" (ngSubmit)="onSubmit()">
-  <!-- Actividad -->
-  <div>
-    <label>Departamento: </label>
-    <input formControlName="nombre" />
-  </div>
-  <!-- Botón de Enviar -->
-  <button type="submit">Guardar</button>
-</form>
+<div class="admin-container">
+  <h1>Administrar Departamento</h1>
+  <form [formGroup]="departamentoForm" (ngSubmit)="onSubmit()">
+    <!-- Campo Departamento -->
+    <div>
+      <label>Nombre del Departamento:</label>
+      <input formControlName="nombre" placeholder="Ingrese el nombre del departamento" />
+    </div>
+
+    <!-- Botón de Enviar -->
+    <button type="submit">Guardar</button>
+  </form>
+</div>

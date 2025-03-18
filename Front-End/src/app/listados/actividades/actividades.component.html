@@ -4,14 +4,15 @@
   <thead>
     <tr>
       <th>Nombre</th>
+      <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let actividad of actividades">
       <td>{{ actividad.nombre }}
       <td>
-        <button [routerLink]="['/actividad', actividad._id]">Editar</button>
-        <button (click)="eliminarActividad(actividad._id)">Eliminar</button>
+        <button class="btn-editar" [routerLink]="['/actividad', actividad._id]">Editar</button>
+        <button class="btn-eliminar" (click)="eliminarActividad(actividad._id)">Eliminar</button>
       </td>
     </tr>
   </tbody>

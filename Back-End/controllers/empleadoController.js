@@ -64,7 +64,7 @@ exports.actualizarEmpleado = async (req, res) => {
                 updates.FotoEmpleado = req.file.path;
             }
 
-            // Actualiza el empleado sin borrar la imagen existente si no hay archivo nuevo
+            // Actualiza el empleado
             const empleado = await Empleado.findByIdAndUpdate(
                 req.params.id,
                 { $set: updates },

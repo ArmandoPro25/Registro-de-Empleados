@@ -8,6 +8,7 @@ import { EmpleadoService } from '../services/empleado.service';
 })
 export class ListadoComponent implements OnInit {
   empleados: any[] = [];
+  empleadoHover: any = null; 
 
   constructor(private empleadoService: EmpleadoService) {}
 
@@ -18,8 +19,15 @@ export class ListadoComponent implements OnInit {
   }
 
   eliminarEmpleado(id: string): void {
-      this.empleadoService.eliminarEmpleado(id).subscribe(() => {
-          this.empleados = this.empleados.filter(emp => emp._id !== id);
-      });
+      // Mostrar el mensaje de confirmación
+      const confirmDelete = window.confirm('¿Estás seguro de que deseas eliminar este empleado?');
+
+      // Si el usuario confirma la eliminación
+      if (confirmDelete) {
+          this.empleadoService.eliminarEmpleado(id).subscribe(() => {
+              // Filtrar el empleado eliminado de la lista
+              this.empleados = this.empleados.filter(emp => emp._id !== id);
+          });
+      }
   }
 }

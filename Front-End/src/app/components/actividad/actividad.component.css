@@ -1,0 +1,89 @@
+/* Estilos generales del contenedor */
+.admin-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #f0faf5;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(5, 50, 30, 0.15);
+}
+
+.admin-container h1 {
+  color: #1a4f40;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+/* Estilos del formulario */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Estilos de los grupos de formulario */
+form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label {
+  font-weight: 500;
+  color: #2d6658;
+  font-size: 0.9rem;
+}
+
+input {
+  padding: 0.75rem;
+  border: 1px solid #c8e6d9;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  width: 100%;
+  max-width: 500px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #34a77f;
+  box-shadow: 0 0 0 3px rgba(52, 167, 127, 0.15);
+}
+
+/* Estilos del botón */
+button[type="submit"] {
+  background-color: #34a77f;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: fit-content;
+  margin-top: 1rem;
+}
+
+button[type="submit"]:hover {
+  background-color: #2a8566;
+}
+
+button[type="submit"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 167, 127, 0.3);
+}
+
+/* Estilos responsivos */
+@media (max-width: 640px) {
+  .admin-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+}

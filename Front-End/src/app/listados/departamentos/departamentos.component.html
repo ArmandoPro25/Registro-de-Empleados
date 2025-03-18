@@ -4,14 +4,15 @@
   <thead>
     <tr>
       <th>Nombre</th>
+      <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let departamento of departamentos">
       <td>{{ departamento.nombre }}
       <td>
-        <button [routerLink]="['/departamento', departamento._id]">Editar</button>
-        <button (click)="eliminarDepartamento(departamento._id)">Eliminar</button>
+        <button class="btn-editar" [routerLink]="['/departamento', departamento._id]">Editar</button>
+        <button class="btn-eliminar" (click)="eliminarDepartamento(departamento._id)">Eliminar</button>
       </td>
     </tr>
   </tbody>
