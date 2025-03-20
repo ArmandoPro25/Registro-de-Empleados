@@ -1,0 +1,83 @@
+<br><br>
+
+<div class="detalle-container">
+  <h2>Detalles del Empleado</h2>
+
+  <!-- Sección de Datos Básicos -->
+  <div class="seccion datos-personales">
+    <h3><i class="fas fa-user-tie"></i>Datos Personales</h3>
+    <img *ngIf="empleado?.FotoEmpleado" [src]="'http://localhost:5000/' + empleado.FotoEmpleado" class="foto-detalle">
+    <p><strong>Clave:</strong> {{ empleado?._id }}</p>
+    <p><strong>Nombre:</strong> {{ empleado?.NombreEmpleado?.Nombres }} {{ empleado?.NombreEmpleado?.ApellidoPaterno }}
+      {{ empleado?.NombreEmpleado?.ApellidoMaterno }}</p>
+    <p><strong>RFC:</strong> {{ empleado?.RFC }}</p>
+    <p><strong>Fecha de Alta:</strong> {{ empleado?.FechaAlta | date:'dd/MM/yyyy' }}</p>
+    <p><strong>Fecha de Nacimiento:</strong> {{ empleado?.FechaNacimiento | date:'dd/MM/yyyy' }}</p>
+    <p><strong>Sexo:</strong> {{ empleado?.Sexo === 'M' ? 'Masculino' : 'Femenino' }}</p>
+  </div>
+
+  <!-- Domicilio -->
+  <div class="seccion domicilio">
+    <h3><i class="fas fa-home"></i>Domicilio</h3>
+    <p><strong>Calle:</strong> {{ empleado.Domicilio.Calle }}</p>
+    <p><strong>Núm. Exterior:</strong> {{ empleado.Domicilio.NumeroExterior }}</p>
+    <p><strong>Núm. Interior:</strong> {{ empleado.Domicilio.NumeroInterior }}</p>
+    <p><strong>Colonia:</strong> {{ empleado.Domicilio.Colonia }}</p>
+    <p><strong>CP:</strong> {{ empleado.Domicilio.CP }}</p>
+    <p><strong>Ciudad:</strong> {{ empleado.Domicilio.Ciudad }}</p>
+  </div>
+
+  <!-- Contacto -->
+  <div class="seccion contacto">
+    <h3><i class="fas fa-address-book"></i>Contacto</h3>
+    <div *ngIf="empleado.Telefono?.length">
+      <h4>Teléfonos</h4>
+      <ul>
+        <li *ngFor="let tel of empleado.Telefono">{{ tel }}</li>
+      </ul>
+    </div>
+    <div *ngIf="empleado.CorreoElectronico?.length">
+      <h4>Correos Electrónicos</h4>
+      <ul>
+        <li *ngFor="let correo of empleado.CorreoElectronico">{{ correo }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Referencias Familiares -->
+  <div class="seccion referencias" *ngIf="empleado?.ReferenciasFamiliares?.length">
+    <h3><i class="fas fa-users"></i>Referencias Familiares</h3>
+    <div *ngFor="let ref of empleado.ReferenciasFamiliares">
+      <p><strong>Nombre:</strong> {{ ref.NombreCompleto }}</p>
+      <p><strong>Parentesco:</strong> {{ ref.Parentesco }}</p>
+      <p><strong>Teléfono:</strong> {{ ref.Telefono?.join(', ') }}</p>
+      <p><strong>Correo:</strong> {{ ref.CorreoElectronico?.join(', ') }}</p>
+      <hr>
+    </div>
+  </div>
+
+  <!-- Cursos -->
+  <div class="seccion cursos" *ngIf="empleado?.CursosTomados?.length">
+    <h3><i class="fas fa-graduation-cap"></i>Cursos Tomados</h3>
+    <div *ngFor="let curso of empleado.CursosTomados">
+      <p><strong>Curso:</strong> {{ curso.NombreCurso }}</p>
+      <p><strong>Fecha Inicio:</strong> {{ curso.FechaInicio | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Fecha Término:</strong> {{ curso.FechaTermino | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Documento:</strong> {{ curso.DocumentoRecibido }}</p>
+      <hr>
+    </div>
+  </div>
+
+  <!-- Actividades -->
+  <div class="seccion actividades" *ngIf="empleado?.ParticipacionActividades?.length">
+    <h3><i class="fas fa-running"></i>Participación en Actividades</h3>
+    <div *ngFor="let act of empleado.ParticipacionActividades">
+      <p><strong>Actividad:</strong> {{ act.Actividad }}</p>
+      <p><strong>Estatus:</strong> {{ act.Estatus === 'A' ? 'Activo' : 'Inactivo' }}</p>
+      <hr>
+    </div>
+  </div>
+  <button class="btn-volver" routerLink="/listado">
+    <i class="fas fa-arrow-left"></i>
+    Volver al Listado</button>
+</div>

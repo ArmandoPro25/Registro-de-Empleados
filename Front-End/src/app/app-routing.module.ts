@@ -10,6 +10,7 @@ import { ActividadesComponent } from './listados/actividades/actividades.compone
 import { DepartamentosComponent } from './listados/departamentos/departamentos.component';
 import { PuestosComponent } from './listados/puestos/puestos.component';
 import { ParentescosComponent } from './listados/parentescos/parentescos.component';
+import { EmpleadoDetalleComponent } from './empleado-detalle/empleado-detalle.component';
 
 const routes: Routes = [
   { path: '', component: ListadoComponent },
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'listadoActividades', component: ActividadesComponent },
   { path: 'listadoDepartamentos', component: DepartamentosComponent },
   { path: 'listadoPuestos', component: PuestosComponent },
-  { path: 'listadoParentescos', component: ParentescosComponent }
+  { path: 'listadoParentescos', component: ParentescosComponent },
+  { path: 'detalles/:id', component: EmpleadoDetalleComponent }
 ];
 
 @NgModule({

@@ -14,6 +14,7 @@ import { PuestosComponent } from './listados/puestos/puestos.component';
 import { ParentescosComponent } from './listados/parentescos/parentescos.component';
 import { ActividadesComponent } from './listados/actividades/actividades.component';
 import { ActividadComponent } from './components/actividad/actividad.component';
+import { EmpleadoDetalleComponent } from './empleado-detalle/empleado-detalle.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ActividadComponent } from './components/actividad/actividad.component';
     PuestosComponent,
     ParentescosComponent,
     ActividadComponent,
-    ActividadesComponent
+    ActividadesComponent,
+    EmpleadoDetalleComponent
   ],
   imports: [
     BrowserModule,

@@ -4,7 +4,7 @@ import { ActividadService } from '../../services/actividad.service';
 @Component({
   selector: 'app-actividades',
   templateUrl: './actividades.component.html',
-  styleUrl: './actividades.component.css'
+  styleUrls: ['./actividades.component.css']
 })
 export class ActividadesComponent implements OnInit {
   actividades: any[] = [];
@@ -18,8 +18,11 @@ export class ActividadesComponent implements OnInit {
   }
 
   eliminarActividad(id: string): void {
+    const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar esta actividad?');
+    if (confirmacion) {
       this.actividadService.eliminarActividad(id).subscribe(() => {
           this.actividades = this.actividades.filter(emp => emp._id !== id);
       });
+    }
   }
 }

@@ -311,7 +311,7 @@ export class AdminComponent implements OnInit {
         // Creación
         this.empleadoService.crearEmpleado(formData).subscribe({
           next: (response) => {
-            this.router.navigate(['/listado']);
+            this.router.navigate(['/listado'])
           },
           error: (err) => {
             console.error('Error al crear:', err);

@@ -23,7 +23,7 @@ export class EmpleadoService {
   }
 
   actualizarEmpleado(id: string, datos: FormData): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, datos); 
+    return this.http.put(`${this.apiUrl}/${id}`, datos);
   }
 
   eliminarEmpleado(id: string): Observable<any> {
@@ -45,4 +45,5 @@ export class EmpleadoService {
   obtenerActividades(): Observable<any> {
     return this.http.get(`${this.apiUrl}/actividades`);
   }
+  
 }

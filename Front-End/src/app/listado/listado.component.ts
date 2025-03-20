@@ -8,7 +8,7 @@ import { EmpleadoService } from '../services/empleado.service';
 })
 export class ListadoComponent implements OnInit {
   empleados: any[] = [];
-  empleadoHover: any = null; 
+  empleadoHover: any = null;
 
   constructor(private empleadoService: EmpleadoService) {}
 

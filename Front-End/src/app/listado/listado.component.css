@@ -67,6 +67,47 @@ tr.detalle-hover {
     background-color: #f8f9fe !important;
     box-shadow: inset 0 0 10px rgba(52, 152, 219, 0.1);
 }
+.detalle-hover {
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.detalle-contenido {
+  padding: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.seccion-detalle {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.seccion-detalle h5 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+.foto-empleado {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
 
 .detalle-contenido {
     padding: 20px;
@@ -123,6 +164,16 @@ button.btn-editar {
 
 button.btn-editar:hover {
   background-color: #27ae60; /* Verde oscuro al pasar el mouse */
+}
+
+/* Estilo para el botón de Ver Detalles */
+button.btn-detalles {
+  background-color: #b7cc2e; /* Verde */
+  color: white;
+}
+
+button.btn-detalles:hover {
+  background-color: #7fa41b; /* Verde oscuro al pasar el mouse */
 }
 
 /* Estilo para el botón de Eliminar */

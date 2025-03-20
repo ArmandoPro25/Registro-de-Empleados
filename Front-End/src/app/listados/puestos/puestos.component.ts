@@ -4,7 +4,7 @@ import { PuestoService } from '../../services/puesto.service';
 @Component({
   selector: 'app-puestos',
   templateUrl: './puestos.component.html',
-  styleUrl: './puestos.component.css'
+  styleUrls: ['./puestos.component.css']
 })
 export class PuestosComponent implements OnInit {
   puestos: any[] = [];
@@ -18,8 +18,11 @@ export class PuestosComponent implements OnInit {
   }
 
   eliminarPuesto(id: string): void {
+    const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar este puesto?');
+    if (confirmacion) {
       this.puestoService.eliminarPuesto(id).subscribe(() => {
           this.puestos = this.puestos.filter(emp => emp._id !== id);
       });
+    }
   }
 }
