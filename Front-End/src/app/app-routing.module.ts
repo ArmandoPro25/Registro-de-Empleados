@@ -1,7 +1,7 @@
 import { ListadoComponent } from './listados/listado/listado.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminComponent } from './admin/admin.component';
+import { AdminComponent } from './components/admin/admin.component';
 import { ActividadComponent } from './components/actividad/actividad.component';
 import { DepartamentoComponent } from './components/departamento/departamento.component';
 import { ParentescoComponent } from './components/parentesco/parentesco.component';
@@ -10,9 +10,7 @@ import { ActividadesComponent } from './listados/actividades/actividades.compone
 import { DepartamentosComponent } from './listados/departamentos/departamentos.component';
 import { PuestosComponent } from './listados/puestos/puestos.component';
 import { ParentescosComponent } from './listados/parentescos/parentescos.component';
-import { EmpleadoDetalleComponent } from './empleado-detalle/empleado-detalle.component';
-import { AdminPruebaComponent } from './components/admin-prueba/admin-prueba.component';
-import { EmpleadoPruebaComponent } from './components/empleado-prueba/empleado-prueba.component';
+import { EmpleadoDetalleComponent } from './components/empleado-detalle/empleado-detalle.component';
 import { LoginComponent } from './components/auth/login/login.component';
 
 const routes: Routes = [
@@ -33,8 +31,6 @@ const routes: Routes = [
   { path: 'listadoPuestos', component: PuestosComponent },
   { path: 'listadoParentescos', component: ParentescosComponent },
   { path: 'detalles/:id', component: EmpleadoDetalleComponent },
-  { path: 'admin', component: AdminPruebaComponent },
-  { path: 'empleado', component: EmpleadoPruebaComponent },
   { path: 'login', component: LoginComponent }
 ];
 

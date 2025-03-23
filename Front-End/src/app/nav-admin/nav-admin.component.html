@@ -1,0 +1,77 @@
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #sidenav mode="push" [ngStyle]="{ width: '250px' }">
+    <mat-toolbar color="warn">
+      <div class="project-brand">
+        <span class="project-name">Administración</span>
+      </div>
+      <button mat-icon-button class="menu-toggle" (click)="sidenav.toggle()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <mat-nav-list>
+      <!-- Sección Administración -->
+      <mat-list-item routerLink="/crear" (click)="sidenav.toggle()">
+        <mat-icon matListItemIcon>person_add</mat-icon>
+        Nuevo Empleado
+      </mat-list-item>
+      <mat-list-item routerLink="/actividad" (click)="sidenav.toggle()">
+        <mat-icon matListItemIcon>event</mat-icon>
+        Actividades
+      </mat-list-item>
+
+      <!-- Sección Catálogos -->
+      <mat-list-item routerLink="/departamento" (click)="sidenav.toggle()">
+        <mat-icon matListItemIcon>business</mat-icon>
+        Departamentos
+      </mat-list-item>
+      <mat-list-item routerLink="/puesto" (click)="sidenav.toggle()">
+        <mat-icon matListItemIcon>work</mat-icon>
+        Puestos
+      </mat-list-item>
+      <mat-list-item routerLink="/parentesco" (click)="sidenav.toggle()">
+        <mat-icon matListItemIcon>family_restroom</mat-icon>
+        Parentescos
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+      <!-- Sección Listados -->
+      <mat-list-item routerLink="/listado" (click)="sidenav.toggle()">
+        <mat-icon matListItemIcon>people</mat-icon>
+        Listado Empleados
+      </mat-list-item>
+      <mat-list-item routerLink="/listadoActividades" (click)="sidenav.toggle()">
+        <mat-icon matListItemIcon>list_alt</mat-icon>
+        Listado Actividades
+      </mat-list-item>
+      <mat-list-item routerLink="/listadoDepartamentos" (click)="sidenav.toggle()">
+        <mat-icon matListItemIcon>apartment</mat-icon>
+        Listado Departamentos
+      </mat-list-item>
+      <mat-list-item routerLink="/listadoPuestos" (click)="sidenav.toggle()">
+        <mat-icon matListItemIcon>badge</mat-icon>
+        Listado Puestos
+      </mat-list-item>
+      <mat-list-item routerLink="/listadoParentescos" (click)="sidenav.toggle()">
+        <mat-icon matListItemIcon>connect_without_contact</mat-icon>
+        Listado Parentescos
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-icon-button class="menu-toggle" (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <div class="project-brand">
+        <span class="project-name">Uriel & Armando Tech</span>
+        <span class="project-version">v2.0</span>
+      </div>
+      <span class="spacer"></span>
+      <button mat-icon-button class="logout-button" (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+    </mat-toolbar>
+  </mat-sidenav-content>
+</mat-sidenav-container>

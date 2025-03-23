@@ -1,10 +1,10 @@
+<app-nav-admin></app-nav-admin>
 <br><br><br>
-
 <h1>Administrar Empleado</h1>
 <form [formGroup]="empleadoForm" (ngSubmit)="onSubmit()">
   <!-- Nombre -->
   <div>
-    <label>Nombres:</label>
+    <label>Nombre (s):</label>
     <input formControlName="Nombres" />
   </div>
   <div>
@@ -22,12 +22,30 @@
     <input type="date" formControlName="FechaNacimiento" />
   </div>
   <div>
-    <label>ROL ACA DE PRUEBA:</label>
-    <input type="text" formControlName="Rol" />
+    <label>Rol:</label>
+    <select formControlName="Rol">
+      <option value="admin">Admin</option>
+      <option value="empleado">Empleado</option>
+    </select>
+    <div *ngIf="empleadoForm.get('Rol')?.invalid && empleadoForm.get('Rol')?.touched">
+      <div *ngIf="empleadoForm.get('Rol')?.errors?.['required']">El rol es obligatorio</div>
+    </div>
   </div>
   <div>
-    <label>CONTRASEÑA ACA BIEN LARGA:</label>
-    <input type="text" formControlName="Contrasena" />
+    <label>Contraseña:</label>
+    <div style="display: flex; align-items: center; gap: 5px;">
+      <input [type]="showPassword ? 'text' : 'password'" formControlName="Contrasena" />
+      <button type="button" (click)="togglePasswordVisibility()" style="margin-left: 5px;">
+        {{ showPassword ? 'Ocultar' : 'Mostrar' }}
+      </button>
+    </div>
+    <div
+      *ngIf="empleadoForm.get('Contrasena')?.invalid && (empleadoForm.get('Contrasena')?.dirty || empleadoForm.get('Contrasena')?.touched)">
+      <div *ngIf="empleadoForm.get('Contrasena')?.errors?.['required']">La contraseña es obligatoria</div>
+      <div *ngIf="empleadoForm.get('Contrasena')?.errors?.['pattern']">
+        La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial
+      </div>
+    </div>
   </div>
   <div>
     <label>Sexo:</label>
@@ -45,8 +63,7 @@
     <img *ngIf="empleadoForm.value.FotoEmpleado && !nuevaImagen"
       [src]="'http://localhost:5000/' + empleadoForm.value.FotoEmpleado" alt="Foto actual" style="max-width: 100px;">
     <!-- Mostrar vista previa de la nueva imagen -->
-    <img *ngIf="nuevaImagen" [src]="empleadoForm.value.FotoEmpleado" alt="Nueva foto"
-      style="max-width: 100px;">
+    <img *ngIf="nuevaImagen" [src]="empleadoForm.value.FotoEmpleado" alt="" style="max-width: 100px;">
   </div>
 
   <!-- Departamento -->
@@ -81,9 +98,13 @@
     <h3>Teléfonos</h3>
     <div *ngFor="let tel of telefonos.controls; let i = index">
       <input [formControlName]="i" placeholder="Teléfono" />
+      <div *ngIf="tel.invalid && (tel.dirty || tel.touched)">
+        <div *ngIf="tel.errors?.['required']">El teléfono es obligatorio o elimina el campo.</div>
+        <div *ngIf="tel.errors?.['pattern']">El teléfono debe tener 10 dígitos.</div>
+      </div>
       <button type="button" (click)="eliminarTelefono(i)">Eliminar</button>
     </div>
-    <button type="button" (click)="agregarTelefono()">Agregar Teléfono</button>
+    <button type="button" (click)="agregarTelefono()">Agregar Telefono</button>
   </div>
 
   <!-- Correos -->
@@ -91,10 +112,15 @@
     <h3>Correos Electrónicos</h3>
     <div *ngFor="let correo of correos.controls; let i = index">
       <input [formControlName]="i" placeholder="Correo Electrónico" />
+      <div *ngIf="correo.invalid && (correo.dirty || correo.touched)">
+        <div *ngIf="correo.errors?.['required']">El correo es requerido.</div>
+        <div *ngIf="correo.errors?.['email']">Ingrese un correo válido.</div>
+      </div>
       <button type="button" (click)="eliminarCorreo(i)">Eliminar</button>
     </div>
     <button type="button" (click)="agregarCorreo()">Agregar Correo</button>
   </div>
+
 
   <div formArrayName="ReferenciasFamiliares">
     <h3>Referencias Familiares</h3>
@@ -107,7 +133,20 @@
         </option>
       </select>
       <input formControlName="Telefono" placeholder="Teléfono" />
+      <div
+        *ngIf="referencias.controls[i].get('Telefono')?.invalid && (referencias.controls[i].get('Telefono')?.dirty || referencias.controls[i].get('Telefono')?.touched)">
+        <div *ngIf="referencias.controls[i].get('Telefono')?.errors?.['required']">El teléfono es obligatorio o elimina
+          el campo</div>
+        <div *ngIf="referencias.controls[i].get('Telefono')?.errors?.['pattern']">El teléfono debe tener 10 dígitos
+        </div>
+      </div>
       <input formControlName="CorreoElectronico" placeholder="Correo Electrónico" />
+      <div
+        *ngIf="referencias.controls[i].get('CorreoElectronico')?.invalid && (referencias.controls[i].get('CorreoElectronico')?.dirty || referencias.controls[i].get('CorreoElectronico')?.touched)">
+        <div *ngIf="referencias.controls[i].get('CorreoElectronico')?.errors?.['required']">El correo es obligatorio o
+          elimina el campo</div>
+        <div *ngIf="referencias.controls[i].get('CorreoElectronico')?.errors?.['email']">Ingrese un correo válido</div>
+      </div>
       <button type="button" (click)="eliminarReferencia(i)">Eliminar</button>
     </div>
     <button type="button" (click)="agregarReferenciaFamiliar()">Agregar Referencia</button>
@@ -119,11 +158,11 @@
     <div *ngFor="let curso of cursos.controls; let i = index" [formGroupName]="i">
       <input formControlName="NombreCurso" placeholder="Nombre del Curso" />
 
-        <label>Fecha de Inicio:</label>
-        <input type="date" formControlName="FechaInicio"/>
+      <label>Fecha de Inicio:</label>
+      <input type="date" formControlName="FechaInicio" />
 
-        <label>Fecha de Término:</label>
-        <input type="date" formControlName="FechaTermino"/>
+      <label>Fecha de Término:</label>
+      <input type="date" formControlName="FechaTermino" />
 
       <input formControlName="DocumentoRecibido" placeholder="Documento Recibido" />
       <button type="button" (click)="eliminarCurso(i)">Eliminar</button>

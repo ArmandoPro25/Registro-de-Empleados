@@ -1,0 +1,252 @@
+/* Fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* Estilos globales */
+.mat-sidenav-container {
+  background: linear-gradient(45deg, #f0f2f5 0%, #e6e9ef 100%) !important;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif !important;
+  z-index: -1;
+  position: relative;
+}
+
+/* Sidenav principal */
+.mat-sidenav {
+  width: 300px !important;
+  background: linear-gradient(195deg, #ffffff 0%, #f8f9ff 100%) !important;
+  box-shadow: 5px 0 30px rgba(63, 81, 181, 0.15) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
+  backdrop-filter: blur(8px);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  overflow: visible;
+  position: relative; /* Asegura que el sidenav no se expanda sobre toda la pantalla */
+  z-index: 1; /* Asegura que el sidenav esté por encima del contenido principal */
+}
+
+.mat-sidenav-container .mat-sidenav {
+  transform: translateX(-100%);
+}
+
+.mat-sidenav-container .mat-sidenav.open {
+  transform: translateX(0); /* Muestra el sidenav cuando está abierto */
+}
+
+
+/* Toolbar superior */
+.mat-toolbar.mat-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  box-shadow: 0 4px 20px rgba(118, 75, 162, 0.25) !important;
+  height: 70px;
+  padding: 0 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Items del menú */
+.mat-nav-list .mat-list-item {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  padding: 0 24px !important;
+  margin: 8px 12px !important;
+  border-radius: 12px !important;
+  position: relative;
+  overflow: hidden;
+  background: transparent !important;
+  pointer-events: auto;
+}
+
+.mat-nav-list .mat-list-item:hover {
+  background: linear-gradient(90deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.05) 100%) !important;
+  transform: translateX(8px) scale(1.02) !important;
+  width: calc(100% - 24px) !important;
+  box-shadow: 3px 3px 15px rgba(102, 126, 234, 0.2) !important;
+}
+
+.mat-nav-list .mat-list-item span {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  font-size: 0.95rem !important;
+  padding: 12px 0 !important;
+}
+
+/* Iconos */
+.mat-icon {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  margin-right: 2rem !important;
+  min-width: 24px !important;
+  color: #667eea !important;
+  filter: drop-shadow(2px 2px 3px rgba(102, 126, 234, 0.2));
+}
+
+/* Divider */
+.mat-divider {
+  border-top-color: rgba(102, 126, 234, 0.2) !important;
+  margin: 1.5rem 24px !important;
+}
+
+/* Botones */
+button.mat-icon-button {
+  transition: all 0.3s ease !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(4px);
+  border-radius: 10px !important;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+button.mat-icon-button:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 3px 15px rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Animaciones */
+@keyframes shimmer {
+  0% { transform: translateX(-50%) rotate(45deg); }
+  100% { transform: translateX(50%) rotate(45deg); }
+}
+
+@keyframes itemPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+/* Efecto de onda al hacer clic */
+.mat-list-item::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
+}
+
+.mat-list-item:active::after {
+  width: 200px;
+  height: 200px;
+  opacity: 0;
+}
+
+/* Contenido principal */
+.mat-sidenav-content {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px);
+  z-index: 0;
+}
+
+.container {
+  padding: 2rem;
+  min-height: calc(100vh - 70px);
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* Estilos para el botón del menú */
+.menu-toggle {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  backdrop-filter: blur(5px);
+  margin-right: 1rem !important;
+  z-index: 1000 !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  pointer-events: auto;
+}
+
+.menu-toggle:hover {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15)) !important;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3) !important;
+}
+
+.menu-toggle mat-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Estilos para el nombre del proyecto */
+.project-brand {
+  display: flex;
+  align-items: baseline;
+  perspective: 1000px;
+}
+
+.project-name {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.7rem;
+  background: linear-gradient(45deg, #ffffff 0%, #e6e9ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: black;
+  text-shadow: 2px 2px 4px rgba(102, 126, 234, 0.2);
+  position: relative;
+  padding-right: 0.5rem;
+  animation: titleFloat 3s ease-in-out infinite;
+}
+
+.project-name::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.6) 50%, transparent 100%);
+}
+
+.logout-button {
+  margin-left: auto; /* Desplaza el botón completamente hacia la derecha */
+  color: white; /* Asegura que el color del ícono sea blanco */
+  background-color: transparent; /* El fondo será transparente para mantener un diseño limpio */
+  border: none; /* Elimina cualquier borde para una apariencia más suave */
+  padding: 10px; /* Un toque de espacio alrededor del ícono para que no quede tan pegado */
+  border-radius: 5px; /* Añade bordes redondeados para un look más moderno */
+  transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
+  pointer-events: auto;
+}
+
+.logout-button:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Un suave cambio de color al pasar el ratón */
+  cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+}
+
+.logout-button:focus {
+  outline: none; /* Elimina el borde por defecto cuando el botón es enfocado */
+}
+
+
+
+.project-version {
+  font-size: 0.7rem;
+  color: black;
+  transform: translateY(-3px);
+  margin-left: 0.3rem;
+  font-weight: 500;
+  text-shadow: 1px 1px 2px rgba(102, 126, 234, 0.2);
+  font-style: bold;
+}
+
+/* Animación flotante para el nombre */
+@keyframes titleFloat {
+  0%, 100% { transform: translateY(0) rotateX(10deg); }
+  50% { transform: translateY(-2px) rotateX(-5deg); }
+}
+
+/* Efecto hover para el brand */
+.project-brand:hover .project-name {
+  animation: titleShine 1.5s ease-out;
+}
+
+@keyframes titleShine {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.mat-nav-list {
+  padding: 0 12px !important;
+}

@@ -7,7 +7,7 @@ import { Component, HostListener } from '@angular/core';
 })
 export class AppComponent {
   title = 'Registro';
-  
+
   @HostListener('window:scroll', ['$event'])
   onScroll() {
     const navbar = document.querySelector('.navbar') as HTMLElement;
@@ -17,4 +17,5 @@ export class AppComponent {
       navbar.classList.remove('scroll-active');
     }
   }
+
 }

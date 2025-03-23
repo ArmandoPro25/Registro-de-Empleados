@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { EmpleadoService } from '../services/empleado.service';
+import { EmpleadoService } from '../../services/empleado.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -16,6 +16,7 @@ export class AdminComponent implements OnInit {
   actividades: any[] = [];
 
   nuevaImagen: File | null = null;
+  showPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -28,8 +29,8 @@ export class AdminComponent implements OnInit {
       ApellidoPaterno: ['', Validators.required],
       ApellidoMaterno: ['', Validators.required],
       FechaNacimiento: ['', Validators.required],
-      Rol: [''],
-      Contrasena: [''],
+      Rol: ['', Validators.required],
+      Contrasena: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*_]).{8,}$/)]],
       Sexo: ['', Validators.required],
       FotoEmpleado: [''],
       Domicilio: this.fb.group({
@@ -56,6 +57,10 @@ export class AdminComponent implements OnInit {
     return d.toISOString().split('T')[0];
   }
 
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
 
 
   ngOnInit(): void {
@@ -66,13 +71,21 @@ export class AdminComponent implements OnInit {
 
       if (empleadoId) {
         this.cargarEmpleadoParaEdicion(empleadoId);
+        this.empleadoForm.get('Contrasena')?.setValidators([
+          Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*_]).{8,}$/)
+        ]);
       } else {
         this.agregarTelefono();
         this.agregarCorreo();
         this.agregarReferenciaFamiliar();
         this.agregarCursoTomado();
         this.agregarActividad();
+        this.empleadoForm.get('Contrasena')?.setValidators([
+          Validators.required,
+          Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/)
+        ]);
       }
+      this.empleadoForm.get('Contrasena')?.updateValueAndValidity();
     });
   }
 
@@ -109,19 +122,15 @@ export class AdminComponent implements OnInit {
 
   // Métodos para cargar los datos en los FormArrays
   setTelefonos(telefonos: string[]) {
-    if (telefonos && telefonos.length > 0) {
-      telefonos.forEach(telefono => {
-        this.telefonos.push(this.fb.control(telefono));
-      });
-    }
+    telefonos.forEach(telefono => {
+      this.telefonos.push(this.fb.control(telefono, [Validators.required, Validators.pattern(/^\d{10}$/)]));
+    });
   }
 
   setCorreos(correos: string[]) {
-    if (correos && correos.length > 0) {
-      correos.forEach(correo => {
-        this.correos.push(this.fb.control(correo));
-      });
-    }
+    correos.forEach(correo => {
+      this.correos.push(this.fb.control(correo, [Validators.required, Validators.email]));
+    });
   }
 
   setReferenciasFamiliares(referencias: any[]) {
@@ -140,7 +149,7 @@ export class AdminComponent implements OnInit {
       this.cursos.push(this.fb.group({
         NombreCurso: [curso.NombreCurso],
         FechaInicio: [this.formatDate(curso.FechaInicio)],
-      FechaTermino: [this.formatDate(curso.FechaTermino)],
+        FechaTermino: [this.formatDate(curso.FechaTermino)],
         DocumentoRecibido: [curso.DocumentoRecibido]
       }));
     });
@@ -177,19 +186,18 @@ export class AdminComponent implements OnInit {
   }
 
   agregarTelefono(): void {
-    this.telefonos.push(this.fb.control(''));
+    this.telefonos.push(this.fb.control('', [Validators.required, Validators.pattern(/^\d{10}$/)]));
   }
-
   agregarCorreo(): void {
-    this.correos.push(this.fb.control(''));
+    this.correos.push(this.fb.control('', [Validators.required, Validators.email]));
   }
 
   agregarReferenciaFamiliar(): void {
     this.referencias.push(this.fb.group({
-      NombreCompleto: [''],
-      Parentesco: [''],
-      Telefono: [''],
-      CorreoElectronico: ['']
+      NombreCompleto: ['', Validators.required],
+      Parentesco: ['', Validators.required],
+      Telefono: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      CorreoElectronico: ['', [Validators.required, Validators.email]]
     }));
   }
 
@@ -249,8 +257,21 @@ export class AdminComponent implements OnInit {
       formData.append('ApellidoMaterno', formValues.ApellidoMaterno);
       formData.append('FechaNacimiento', formValues.FechaNacimiento);
       formData.append('Rol', formValues.Rol);
-      formData.append('Contrasena', formValues.Contrasena);
       formData.append('Sexo', formValues.Sexo);
+
+      if (empleadoId) {
+        // Modo Edición: Solo envía contraseña si no está vacía
+        if (formValues.Contrasena?.trim()) {
+          if (this.empleadoForm.get('Contrasena')?.invalid) { // ← Validación extra
+            alert('La contraseña no cumple los requisitos');
+            return;
+          }
+          formData.append('Contrasena', formValues.Contrasena.trim());
+        }
+      } else {
+        // Modo Creación: Contraseña siempre requerida
+        formData.append('Contrasena', formValues.Contrasena);
+      }
 
       // Domicilio
       formData.append('Domicilio[Calle]', formValues.Domicilio.Calle || '');
@@ -312,8 +333,10 @@ export class AdminComponent implements OnInit {
             console.error('Error al actualizar:', err);
           }
         });
+
       } else {
         // Creación
+        formData.append('Contrasena', formValues.Contrasena);
         this.empleadoService.crearEmpleado(formData).subscribe({
           next: (response) => {
             this.router.navigate(['/listado'])

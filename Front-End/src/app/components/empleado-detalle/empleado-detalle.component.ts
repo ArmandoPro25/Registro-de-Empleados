@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EmpleadoService } from '../services/empleado.service';
+import { EmpleadoService } from '../../services/empleado.service';
 
 @Component({
   selector: 'app-empleado-detalle',
