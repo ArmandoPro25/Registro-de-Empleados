@@ -45,5 +45,9 @@ export class EmpleadoService {
   obtenerActividades(): Observable<any> {
     return this.http.get(`${this.apiUrl}/actividades`);
   }
+
+  autenticacion(_id: String, Contrasena: String) : Observable<any> {
+    return this.http.post(`${this.apiUrl}/autenticacion`, {_id, Contrasena});
+  }
   
 }

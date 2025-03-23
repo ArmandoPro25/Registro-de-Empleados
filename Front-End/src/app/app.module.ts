@@ -15,6 +15,9 @@ import { ParentescosComponent } from './listados/parentescos/parentescos.compone
 import { ActividadesComponent } from './listados/actividades/actividades.component';
 import { ActividadComponent } from './components/actividad/actividad.component';
 import { EmpleadoDetalleComponent } from './empleado-detalle/empleado-detalle.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { AdminPruebaComponent } from './components/admin-prueba/admin-prueba.component';
+import { EmpleadoPruebaComponent } from './components/empleado-prueba/empleado-prueba.component';
 
 
 @NgModule({
@@ -30,7 +33,10 @@ import { EmpleadoDetalleComponent } from './empleado-detalle/empleado-detalle.co
     ParentescosComponent,
     ActividadComponent,
     ActividadesComponent,
-    EmpleadoDetalleComponent
+    EmpleadoDetalleComponent,
+    LoginComponent,
+    AdminPruebaComponent,
+    EmpleadoPruebaComponent,
   ],
   imports: [
     BrowserModule,

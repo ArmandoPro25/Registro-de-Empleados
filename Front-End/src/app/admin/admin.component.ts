@@ -28,6 +28,8 @@ export class AdminComponent implements OnInit {
       ApellidoPaterno: ['', Validators.required],
       ApellidoMaterno: ['', Validators.required],
       FechaNacimiento: ['', Validators.required],
+      Rol: [''],
+      Contrasena: [''],
       Sexo: ['', Validators.required],
       FotoEmpleado: [''],
       Domicilio: this.fb.group({
@@ -88,6 +90,8 @@ export class AdminComponent implements OnInit {
         ApellidoPaterno: empleado.NombreEmpleado.ApellidoPaterno,
         ApellidoMaterno: empleado.NombreEmpleado.ApellidoMaterno,
         FechaNacimiento: this.formatDate(empleado.FechaNacimiento),
+        Rol: empleado.Rol,
+        Contrasena: empleado.Contrasena,
         Sexo: empleado.Sexo,
         FotoEmpleado: empleado.FotoEmpleado,
         Departamento: empleado.Departamento,
@@ -244,6 +248,8 @@ export class AdminComponent implements OnInit {
       formData.append('ApellidoPaterno', formValues.ApellidoPaterno);
       formData.append('ApellidoMaterno', formValues.ApellidoMaterno);
       formData.append('FechaNacimiento', formValues.FechaNacimiento);
+      formData.append('Rol', formValues.Rol);
+      formData.append('Contrasena', formValues.Contrasena);
       formData.append('Sexo', formValues.Sexo);
 
       // Domicilio
