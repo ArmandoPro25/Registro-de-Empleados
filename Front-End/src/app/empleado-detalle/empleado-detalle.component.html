@@ -73,7 +73,7 @@
     <h3><i class="fas fa-running"></i>Participación en Actividades</h3>
     <div *ngFor="let act of empleado.ParticipacionActividades">
       <p><strong>Actividad:</strong> {{ act.Actividad }}</p>
-      <p><strong>Estatus:</strong> {{ act.Estatus === 'A' ? 'Activo' : 'Inactivo' }}</p>
+      <p><strong>Estatus:</strong> {{ act.Estatus === '1' ? 'Participó' : 'No Participó' }}</p>
       <hr>
     </div>
   </div>

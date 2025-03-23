@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PuestoService } from '../../services/puesto.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-puestos',
@@ -12,17 +13,42 @@ export class PuestosComponent implements OnInit {
   constructor(private puestoService: PuestoService) {}
 
   ngOnInit(): void {
-      this.puestoService.obtenerPuestos().subscribe(data => {
-          this.puestos = data;
-      });
+    this.puestoService.obtenerPuestos().subscribe(data => {
+      this.puestos = data;
+    });
   }
 
   eliminarPuesto(id: string): void {
-    const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar este puesto?');
-    if (confirmacion) {
-      this.puestoService.eliminarPuesto(id).subscribe(() => {
-          this.puestos = this.puestos.filter(emp => emp._id !== id);
-      });
-    }
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¡Esta acción eliminará el puesto de forma permanente!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.puestoService.eliminarPuesto(id).subscribe({
+          next: () => {
+            this.puestos = this.puestos.filter(puesto => puesto._id !== id);
+            Swal.fire(
+              '¡Eliminado!',
+              'El puesto ha sido eliminado exitosamente.',
+              'success'
+            );
+          },
+          error: (error) => {
+            Swal.fire(
+              'Error',
+              'No se pudo eliminar el puesto. Intente nuevamente.',
+              'error'
+            );
+            console.error('Error eliminando puesto:', error);
+          }
+        });
+      }
+    });
   }
 }

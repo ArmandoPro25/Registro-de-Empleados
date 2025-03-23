@@ -1,4 +1,4 @@
-import { ListadoComponent } from './listado/listado.component';
+import { ListadoComponent } from './listados/listado/listado.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';

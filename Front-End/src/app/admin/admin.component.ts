@@ -65,7 +65,6 @@ export class AdminComponent implements OnInit {
       if (empleadoId) {
         this.cargarEmpleadoParaEdicion(empleadoId);
       } else {
-        // Solo agregar campos vacíos si es un nuevo empleado
         this.agregarTelefono();
         this.agregarCorreo();
         this.agregarReferenciaFamiliar();

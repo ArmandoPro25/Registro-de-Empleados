@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminComponent } from './admin/admin.component';
-import { ListadoComponent } from './listado/listado.component';
+import { ListadoComponent } from './listados/listado/listado.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DepartamentoComponent } from './components/departamento/departamento.component';
 import { PuestoComponent } from './components/puesto/puesto.component';
