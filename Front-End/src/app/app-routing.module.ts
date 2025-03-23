@@ -11,6 +11,9 @@ import { DepartamentosComponent } from './listados/departamentos/departamentos.c
 import { PuestosComponent } from './listados/puestos/puestos.component';
 import { ParentescosComponent } from './listados/parentescos/parentescos.component';
 import { EmpleadoDetalleComponent } from './empleado-detalle/empleado-detalle.component';
+import { AdminPruebaComponent } from './components/admin-prueba/admin-prueba.component';
+import { EmpleadoPruebaComponent } from './components/empleado-prueba/empleado-prueba.component';
+import { LoginComponent } from './components/auth/login/login.component';
 
 const routes: Routes = [
   { path: '', component: ListadoComponent },
@@ -29,7 +32,10 @@ const routes: Routes = [
   { path: 'listadoDepartamentos', component: DepartamentosComponent },
   { path: 'listadoPuestos', component: PuestosComponent },
   { path: 'listadoParentescos', component: ParentescosComponent },
-  { path: 'detalles/:id', component: EmpleadoDetalleComponent }
+  { path: 'detalles/:id', component: EmpleadoDetalleComponent },
+  { path: 'admin', component: AdminPruebaComponent },
+  { path: 'empleado', component: EmpleadoPruebaComponent },
+  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({

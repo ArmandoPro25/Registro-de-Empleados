@@ -2,6 +2,7 @@ const Empleado = require('../models/empleadoModel');
 const { generarClave, generarRFC } = require('../utils/generadores');
 const multer = require('multer');
 const path = require('path');
+const jwt = require('jsonwebtoken');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -31,7 +32,7 @@ exports.crearEmpleado = async (req, res) => {
     upload(req, res, async (err) => {
         if (err) return res.status(500).json({ error: err.message });
 
-        const { Nombres, ApellidoPaterno, ApellidoMaterno, FechaNacimiento, ...resto } = req.body;
+        const { Nombres, ApellidoPaterno, ApellidoMaterno, FechaNacimiento, Contrasena, ...resto } = req.body;
         const clave = await generarClave(Nombres, ApellidoPaterno, ApellidoMaterno);
         const rfc = generarRFC(ApellidoPaterno, ApellidoMaterno, Nombres, new Date(FechaNacimiento));
 
@@ -40,6 +41,7 @@ exports.crearEmpleado = async (req, res) => {
             NombreEmpleado: { Nombres, ApellidoPaterno, ApellidoMaterno },
             RFC: rfc,
             FotoEmpleado: req.file ? req.file.path : null,
+            Contrasena: Contrasena,
             ...resto
         });
 
@@ -81,4 +83,30 @@ exports.actualizarEmpleado = async (req, res) => {
 exports.eliminarEmpleado = async (req, res) => {
     await Empleado.findByIdAndDelete(req.params.id);
     res.status(204).send();
+};
+
+exports.autenticarEmpleado = async (req, res) => {
+    const { Contrasena, _id } = req.body;
+
+    try {
+        const empleado = await Empleado.findOne({ _id: _id }).select('+Contrasena');
+        if (!empleado) return res.status(404).json({ error: 'Empleado no encontrado' });
+
+        if (Contrasena !== empleado.Contrasena) {
+            return res.status(401).json({ error: 'Contraseña incorrecta' });
+        }
+
+        console.log('Acceso correcto de', empleado.NombreEmpleado.Nombres);
+
+        const token = jwt.sign(
+            { id: empleado._id, rol: empleado.Rol },
+            'clave-muy-secreta-muy-larga-como-mi-v12345',
+            { expiresIn: '1h' }
+        );
+
+        res.json({ token, empleado });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };

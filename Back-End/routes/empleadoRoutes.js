@@ -43,4 +43,6 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+router.post('/autenticacion', empleadoController.autenticarEmpleado);
+
 module.exports = router;

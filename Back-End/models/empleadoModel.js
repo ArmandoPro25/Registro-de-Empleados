@@ -12,6 +12,8 @@ const EmpleadoSchema = new mongoose.Schema({
     FechaNacimiento: Date,
     Sexo: String,
     FotoEmpleado: String, // Se guarda la ruta de la imagen
+    Contrasena: { type: String, required: true },
+    Rol: String,
     Domicilio: {
         Calle: String,
         NumeroExterior: String,
